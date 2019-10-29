@@ -1,0 +1,6 @@
+main/interfaces/SharknetCertificateInterface.class
+main/interfaces/UserInterface.class
+main/impl/SharknetCertificate.class
+main/interfaces/SharknetPublicKeyInterface.class
+main/impl/User.class
+main/impl/SharknetPublicKey.class
