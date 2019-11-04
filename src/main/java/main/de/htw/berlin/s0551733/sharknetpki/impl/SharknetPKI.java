@@ -1,8 +1,8 @@
-package main.impl;
+package main.de.htw.berlin.s0551733.sharknetpki.impl;
 
-import main.interfaces.PKI;
-import main.interfaces.SharknetCertificateInterface;
-import main.interfaces.SharknetPublicKeyInterface;
+import main.de.htw.berlin.s0551733.sharknetpki.PKI;
+import main.de.htw.berlin.s0551733.sharknetpki.SharknetCertificate;
+import main.de.htw.berlin.s0551733.sharknetpki.SharknetPublicKey;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
 import org.bouncycastle.cert.X509v3CertificateBuilder;
@@ -18,62 +18,52 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class SharknetPKI implements PKI {
 
-    private Set<SharknetPublicKeyInterface> sharknetPublicKey;
-    private Set<SharknetCertificateInterface> sharknetCertificate;
+    private Set<SharknetPublicKey> sharknetPublicKey;
+    private Set<SharknetCertificate> sharknetCertificate;
     private KeyStore keyStore;
     private static final int KEY_DURATION_YEARS = 1;
     private char[] password;
-    private String keyStorePath; //"data/keystore.ks"
 
+    public SharknetPKI(char[] password) throws SharkNetExcption {
+        this(password, new HashSet<SharknetPublicKey>(), new HashSet<SharknetCertificate>());
+    }
 
-    public SharknetPKI(char[] keyStorePassword, String keyStorePath, Set<SharknetPublicKeyInterface> sharknetPublicKey, Set<SharknetCertificateInterface> sharknetCertificate) {
+    public SharknetPKI(char[] keyStorePassword, Set<SharknetPublicKey> sharknetPublicKey, Set<SharknetCertificate> sharknetCertificate) throws SharkNetExcption {
         this.sharknetPublicKey = sharknetPublicKey;
         this.sharknetCertificate = sharknetCertificate;
         this.password = keyStorePassword;
-        this.keyStorePath = keyStorePath;
         try {
             initKeyStore();
-        } catch (KeyStoreException e) {
-            e.printStackTrace();
-        } catch (CertificateException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (NoSuchProviderException e) {
-            e.printStackTrace();
+        } catch (KeyStoreException | CertificateException | NoSuchAlgorithmException | IOException | NoSuchProviderException e) {
+            throw new SharkNetExcption(e);
         }
     }
 
-    public List<User> getUsers() {
-        final List<User> users = new ArrayList<>();
-        for (SharknetPublicKeyInterface key : sharknetPublicKey) {
-            users.add(new User(key.getUuid(), key.getAlias()));
+    public List<SharkNetUser> getUsers() {
+        final List<SharkNetUser> users = new ArrayList<>();
+        for (SharknetPublicKey key : sharknetPublicKey) {
+            users.add(new SharkNetUser(key.getUuid(), key.getAlias()));
         }
-        for (SharknetCertificateInterface cert : sharknetCertificate) {
-            users.add(new User(cert.getUuid(), cert.getAlias()));
+        for (SharknetCertificate cert : sharknetCertificate) {
+            users.add(new SharkNetUser(cert.getUuid(), cert.getAlias()));
         }
         return users;
     }
 
     public PublicKey getPublicKey(String uuid) {
         PublicKey wantedKey = null;
-        for (SharknetPublicKeyInterface key : sharknetPublicKey) {
+        for (SharknetPublicKey key : sharknetPublicKey) {
             if (key.getUuid().equals(uuid)) {
                 wantedKey = key.getPublicKey();
                 break;
             }
         }
         if (wantedKey == null) {
-            for (SharknetCertificateInterface cert : sharknetCertificate) {
+            for (SharknetCertificate cert : sharknetCertificate) {
                 if (cert.getUuid().equals(uuid)) {
                     wantedKey = cert.getCertificate().getPublicKey();
                     break;
@@ -85,7 +75,7 @@ public class SharknetPKI implements PKI {
 
     public Certificate getCertificate(String uuid) {
         Certificate wantedCertificate = null;
-        for (SharknetCertificateInterface cert : sharknetCertificate) {
+        for (SharknetCertificate cert : sharknetCertificate) {
             if (cert.getUuid().equals(uuid)) {
                 wantedCertificate = cert.getCertificate();
                 break;
@@ -94,7 +84,7 @@ public class SharknetPKI implements PKI {
         return wantedCertificate;
     }
 
-    public void addCertificate(SharknetCertificate certificate) {
+    public void addCertificate(SharknetCertificateImpl certificate) {
         sharknetCertificate.add(certificate);
     }
 
@@ -128,8 +118,7 @@ public class SharknetPKI implements PKI {
         SecureRandom secRandom = new SecureRandom();
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
         keyGen.initialize(2048, secRandom);
-        KeyPair keypair = keyGen.generateKeyPair();
-        return keypair;
+        return keyGen.generateKeyPair();
     }
 
 
@@ -163,30 +152,14 @@ public class SharknetPKI implements PKI {
 
     }
 
-    public void persistKeyStore() {
-        try (FileOutputStream keyStoreOutputStream = new FileOutputStream(this.keyStorePath)) {
-            this.keyStore.store(keyStoreOutputStream, this.password);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (CertificateException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (KeyStoreException e) {
-            e.printStackTrace();
-        }
+    public void persistKeyStore(OutputStream outputStream) throws CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException {
+//        try (FileOutputStream keyStoreOutputStream = new FileOutputStream(this.keyStorePath)) {
+        this.keyStore.store(outputStream, this.password);
     }
 
-    public void loadKeyStore() {
-        try (InputStream keyStoreData = new FileInputStream(this.keyStorePath)) {
-            keyStore.load(keyStoreData, this.password);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (CertificateException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
+    public void loadKeyStore(InputStream inputStream) throws CertificateException, NoSuchAlgorithmException, IOException {
+//        try (InputStream keyStoreData = new FileInputStream(this.keyStorePath)) {
+            keyStore.load(inputStream, this.password);
     }
     // BC
 //    private KeyPair createKeyPairWithBC() throws NoSuchAlgorithmException, InvalidKeySpecException {

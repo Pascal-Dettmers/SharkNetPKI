@@ -1,17 +1,22 @@
-package main.impl;
+package pkiTest;
 
+import main.de.htw.berlin.s0551733.sharknetpki.impl.SharkNetExcption;
+import main.de.htw.berlin.s0551733.sharknetpki.impl.SharknetPKI;
 import org.bouncycastle.operator.OperatorCreationException;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.security.*;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.security.spec.InvalidKeySpecException;
 
 public class Main {
 
-    public static void main(String[] args) throws NoSuchProviderException, NoSuchAlgorithmException, IOException, CertificateException, InvalidKeyException, SignatureException, InvalidKeySpecException, KeyStoreException {
-        SharknetPKI pki = new SharknetPKI("pw".toCharArray(), "/Users/pascaldettmers/Documents/Project/Bachelor/NeueBASchwotzerApp/sharknetpki/src/main/resources/data/keystore.ks", null, null);
+    private static final String PATH = "/Users/pascaldettmers/Documents/Project/Bachelor/NeueBASchwotzerApp/sharknetpki/src/main/resources/data/keystore.ks";
+
+    public static void main(String[] args) throws NoSuchAlgorithmException, IOException, CertificateException, KeyStoreException, SharkNetExcption {
+        SharknetPKI pki = new SharknetPKI("pw".toCharArray());
         try {
             System.out.println("Public Key: " + pki.getPublicKey().toString());
         } catch (KeyStoreException e) {
@@ -53,8 +58,8 @@ public class Main {
             e.printStackTrace();
         }
 
-        pki.persistKeyStore();
-        pki.loadKeyStore();
+        pki.persistKeyStore(new FileOutputStream(PATH));
+        pki.loadKeyStore(new FileInputStream(PATH));
     }
 
     // BC
