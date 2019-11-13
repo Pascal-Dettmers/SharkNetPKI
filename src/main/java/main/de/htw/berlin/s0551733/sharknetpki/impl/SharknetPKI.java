@@ -22,19 +22,48 @@ import java.util.*;
 
 public class SharknetPKI implements PKI {
 
-    private Set<SharknetPublicKey> sharknetPublicKey;
-    private Set<SharknetCertificate> sharknetCertificate;
+    private Set<SharknetPublicKey> sharknetPublicKeys;
+    private Set<SharknetCertificate> sharknetCertificates;
     private KeyStore keyStore;
     private static final int KEY_DURATION_YEARS = 1;
     private char[] password;
 
-    public SharknetPKI(char[] password) throws SharkNetExcption {
+
+    private static SharknetPKI sharkNetSingleton = null;
+
+    public static SharknetPKI getInstance() {
+        if (sharkNetSingleton == null) {
+            throw new AssertionError("You have to call init first");
+        }
+        return sharkNetSingleton;
+    }
+
+    public synchronized static SharknetPKI init(char[] password) throws SharkNetExcption {
+        if (sharkNetSingleton != null) {
+            throw new AssertionError("Already initialized");
+        }
+
+        sharkNetSingleton = new SharknetPKI(password);
+        return sharkNetSingleton;
+    }
+
+    public synchronized static SharknetPKI init(char[] keyStorePassword, Set<SharknetPublicKey> sharknetPublicKeys, Set<SharknetCertificate> sharknetCertificates) throws SharkNetExcption {
+        if (sharkNetSingleton != null) {
+            throw new AssertionError("You already initialized me");
+        }
+
+        sharkNetSingleton = new SharknetPKI(keyStorePassword, sharknetPublicKeys, sharknetCertificates);
+        return sharkNetSingleton;
+    }
+
+
+    private SharknetPKI(char[] password) throws SharkNetExcption {
         this(password, new HashSet<SharknetPublicKey>(), new HashSet<SharknetCertificate>());
     }
 
-    public SharknetPKI(char[] keyStorePassword, Set<SharknetPublicKey> sharknetPublicKey, Set<SharknetCertificate> sharknetCertificate) throws SharkNetExcption {
-        this.sharknetPublicKey = sharknetPublicKey;
-        this.sharknetCertificate = sharknetCertificate;
+    private SharknetPKI(char[] keyStorePassword, Set<SharknetPublicKey> sharknetPublicKeys, Set<SharknetCertificate> sharknetCertificates) throws SharkNetExcption {
+        this.sharknetPublicKeys = sharknetPublicKeys;
+        this.sharknetCertificates = sharknetCertificates;
         this.password = keyStorePassword;
         try {
             initKeyStore();
@@ -45,10 +74,10 @@ public class SharknetPKI implements PKI {
 
     public List<SharkNetUser> getUsers() {
         final List<SharkNetUser> users = new ArrayList<>();
-        for (SharknetPublicKey key : sharknetPublicKey) {
+        for (SharknetPublicKey key : sharknetPublicKeys) {
             users.add(new SharkNetUser(key.getUuid(), key.getAlias()));
         }
-        for (SharknetCertificate cert : sharknetCertificate) {
+        for (SharknetCertificate cert : sharknetCertificates) {
             users.add(new SharkNetUser(cert.getUuid(), cert.getAlias()));
         }
         return users;
@@ -56,14 +85,14 @@ public class SharknetPKI implements PKI {
 
     public PublicKey getPublicKey(String uuid) {
         PublicKey wantedKey = null;
-        for (SharknetPublicKey key : sharknetPublicKey) {
+        for (SharknetPublicKey key : sharknetPublicKeys) {
             if (key.getUuid().equals(uuid)) {
                 wantedKey = key.getPublicKey();
                 break;
             }
         }
         if (wantedKey == null) {
-            for (SharknetCertificate cert : sharknetCertificate) {
+            for (SharknetCertificate cert : sharknetCertificates) {
                 if (cert.getUuid().equals(uuid)) {
                     wantedKey = cert.getCertificate().getPublicKey();
                     break;
@@ -75,7 +104,7 @@ public class SharknetPKI implements PKI {
 
     public Certificate getCertificate(String uuid) {
         Certificate wantedCertificate = null;
-        for (SharknetCertificate cert : sharknetCertificate) {
+        for (SharknetCertificate cert : sharknetCertificates) {
             if (cert.getUuid().equals(uuid)) {
                 wantedCertificate = cert.getCertificate();
                 break;
@@ -85,7 +114,7 @@ public class SharknetPKI implements PKI {
     }
 
     public void addCertificate(SharknetCertificateImpl certificate) {
-        sharknetCertificate.add(certificate);
+        sharknetCertificates.add(certificate);
     }
 
     private void initKeyStore() throws KeyStoreException, CertificateException, NoSuchAlgorithmException, IOException, NoSuchProviderException {
@@ -159,7 +188,7 @@ public class SharknetPKI implements PKI {
 
     public void loadKeyStore(InputStream inputStream) throws CertificateException, NoSuchAlgorithmException, IOException {
 //        try (InputStream keyStoreData = new FileInputStream(this.keyStorePath)) {
-            keyStore.load(inputStream, this.password);
+        keyStore.load(inputStream, this.password);
     }
     // BC
 //    private KeyPair createKeyPairWithBC() throws NoSuchAlgorithmException, InvalidKeySpecException {

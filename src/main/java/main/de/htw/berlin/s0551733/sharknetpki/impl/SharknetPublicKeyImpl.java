@@ -1,40 +1,42 @@
 package main.de.htw.berlin.s0551733.sharknetpki.impl;
 
 import main.de.htw.berlin.s0551733.sharknetpki.SharknetPublicKey;
+import main.de.htw.berlin.s0551733.sharknetpki.User;
 
 import java.io.Serializable;
 import java.security.PublicKey;
+import java.util.Date;
 import java.util.Objects;
 
 public class SharknetPublicKeyImpl implements Serializable, SharknetPublicKey {
 
-    private String alias;
-    private final String uuid;
+    private User keyOwner;
     private PublicKey publicKey;
+    private Date validityPeriod;
 
-    public SharknetPublicKeyImpl(String alias, String uuid) {
-        this.alias = alias;
-        this.uuid = uuid;
+    public SharknetPublicKeyImpl(User keyOwner, PublicKey publicKey, Date validityPeriod) {
+        this.keyOwner = keyOwner;
+        this.publicKey = publicKey;
+        this.validityPeriod = validityPeriod;
     }
 
+    @Override
     public String getAlias() {
-        return alias;
+        return this.keyOwner.getAlias();
     }
 
-    public void setAlias(String alias) {
-        this.alias = alias;
-    }
-
+    @Override
     public String getUuid() {
-        return uuid;
+        return this.keyOwner.getUuid();
     }
 
     public PublicKey getPublicKey() {
         return publicKey;
     }
 
-    public void setPublicKey(PublicKey publicKey) {
-        this.publicKey = publicKey;
+    @Override
+    public Date getValidityPeriod() {
+        return this.validityPeriod;
     }
 
     @Override
@@ -42,11 +44,11 @@ public class SharknetPublicKeyImpl implements Serializable, SharknetPublicKey {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SharknetPublicKeyImpl that = (SharknetPublicKeyImpl) o;
-        return Objects.equals(uuid, that.uuid);
+        return Objects.equals(this.getUuid(), that.getUuid());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uuid);
+        return Objects.hash(getUuid());
     }
 }

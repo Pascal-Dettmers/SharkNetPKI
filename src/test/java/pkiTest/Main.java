@@ -16,7 +16,7 @@ public class Main {
     private static final String PATH = "/Users/pascaldettmers/Documents/Project/Bachelor/NeueBASchwotzerApp/sharknetpki/src/main/resources/data/keystore.ks";
 
     public static void main(String[] args) throws NoSuchAlgorithmException, IOException, CertificateException, KeyStoreException, SharkNetExcption {
-        SharknetPKI pki = new SharknetPKI("pw".toCharArray());
+        SharknetPKI pki = SharknetPKI.init("pw".toCharArray());
         try {
             System.out.println("Public Key: " + pki.getPublicKey().toString());
         } catch (KeyStoreException e) {
@@ -38,11 +38,7 @@ public class Main {
         X509Certificate x509Certificate = null;
         try {
             x509Certificate = pki.generateCertificateWithCertBuilder(keypair.getPublic(), pki.getPrivateKey(), "localhost", "thirparty");
-        } catch (UnrecoverableKeyException e) {
-            e.printStackTrace();
-        } catch (KeyStoreException e) {
-            e.printStackTrace();
-        } catch (OperatorCreationException e) {
+        } catch (UnrecoverableKeyException | OperatorCreationException | KeyStoreException e) {
             e.printStackTrace();
         }
         System.out.println("Certificate: " + x509Certificate.toString());

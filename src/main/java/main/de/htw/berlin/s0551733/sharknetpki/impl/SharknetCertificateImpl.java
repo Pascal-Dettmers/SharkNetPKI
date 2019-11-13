@@ -1,6 +1,7 @@
 package main.de.htw.berlin.s0551733.sharknetpki.impl;
 
 import main.de.htw.berlin.s0551733.sharknetpki.SharknetCertificate;
+import main.de.htw.berlin.s0551733.sharknetpki.User;
 
 import java.io.Serializable;
 import java.security.cert.Certificate;
@@ -11,6 +12,7 @@ public class SharknetCertificateImpl implements Serializable, SharknetCertificat
     private String alias;
     private final String uuid;
     private Certificate certificate;
+    private User signer;
 
     public SharknetCertificateImpl(String alias, String uuid, Certificate certificate)  {
         this.alias = alias;
@@ -32,6 +34,11 @@ public class SharknetCertificateImpl implements Serializable, SharknetCertificat
 
     public Certificate getCertificate() {
         return certificate;
+    }
+
+    @Override
+    public User getSigner() {
+        return signer;
     }
 
     public void setCertificate(Certificate certificate) {

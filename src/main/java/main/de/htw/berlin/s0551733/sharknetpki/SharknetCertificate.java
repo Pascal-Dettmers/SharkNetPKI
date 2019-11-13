@@ -7,4 +7,5 @@ public interface SharknetCertificate {
     String getAlias();
     String getUuid();
     Certificate getCertificate();
+    User getSigner();
 }
