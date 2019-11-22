@@ -1,6 +1,6 @@
 package pkiTest;
 
-import main.de.htw.berlin.s0551733.sharknetpki.impl.SharkNetExcption;
+import main.de.htw.berlin.s0551733.sharknetpki.impl.SharkNetException;
 import main.de.htw.berlin.s0551733.sharknetpki.impl.SharknetPKI;
 import org.bouncycastle.operator.OperatorCreationException;
 
@@ -15,15 +15,15 @@ public class Main {
 
     private static final String PATH = "/Users/pascaldettmers/Documents/Project/Bachelor/NeueBASchwotzerApp/sharknetpki/src/main/resources/data/keystore.ks";
 
-    public static void main(String[] args) throws NoSuchAlgorithmException, IOException, CertificateException, KeyStoreException, SharkNetExcption {
+    public static void main(String[] args) throws NoSuchAlgorithmException, IOException, CertificateException, KeyStoreException, SharkNetException {
         SharknetPKI pki = SharknetPKI.init("pw".toCharArray());
         try {
-            System.out.println("Public Key: " + pki.getPublicKey().toString());
+            System.out.println("Public Key: " + pki.getMyOwnPublicKey().toString());
         } catch (KeyStoreException e) {
             e.printStackTrace();
         }
 
-        PublicKey publicKey = pki.getPublicKey();
+        PublicKey publicKey = pki.getMyOwnPublicKey();
 
         SecureRandom secRandom = new SecureRandom();
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
@@ -43,7 +43,7 @@ public class Main {
         }
         System.out.println("Certificate: " + x509Certificate.toString());
         try {
-            x509Certificate.verify(pki.getPublicKey());
+            x509Certificate.verify(pki.getMyOwnPublicKey());
         } catch (Exception e) {
             if (e instanceof InvalidKeyException) {
                 System.out.println("wrong Key");

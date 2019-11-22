@@ -12,12 +12,12 @@ public class SharknetPublicKeyImpl implements Serializable, SharknetPublicKey {
 
     private User keyOwner;
     private PublicKey publicKey;
-    private Date validityPeriod;
+    private Date expirationDate;
 
-    public SharknetPublicKeyImpl(User keyOwner, PublicKey publicKey, Date validityPeriod) {
+    public SharknetPublicKeyImpl(User keyOwner, PublicKey publicKey, Date expirationDate) {
         this.keyOwner = keyOwner;
         this.publicKey = publicKey;
-        this.validityPeriod = validityPeriod;
+        this.expirationDate = expirationDate;
     }
 
     @Override
@@ -35,8 +35,8 @@ public class SharknetPublicKeyImpl implements Serializable, SharknetPublicKey {
     }
 
     @Override
-    public Date getValidityPeriod() {
-        return this.validityPeriod;
+    public Date getExpirationDate() {
+        return this.expirationDate;
     }
 
     @Override

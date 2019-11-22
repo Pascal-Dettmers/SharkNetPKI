@@ -1,6 +1,5 @@
 package main.de.htw.berlin.s0551733.sharknetpki;
 
-import main.de.htw.berlin.s0551733.sharknetpki.impl.SharknetCertificateImpl;
 import main.de.htw.berlin.s0551733.sharknetpki.impl.SharkNetUser;
 
 import java.security.PublicKey;
@@ -15,6 +14,6 @@ public interface PKI {
 
     Certificate getCertificate(String uuid);
 
-    void addCertificate(SharknetCertificateImpl certificate);
+    void addCertificate(SharknetCertificate certificate);
 
 }

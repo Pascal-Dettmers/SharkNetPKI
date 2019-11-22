@@ -25,7 +25,7 @@ public class SharknetPKI implements PKI {
     private Set<SharknetPublicKey> sharknetPublicKeys;
     private Set<SharknetCertificate> sharknetCertificates;
     private KeyStore keyStore;
-    private static final int KEY_DURATION_YEARS = 1;
+    private static final int DURATION_YEARS = 1;
     private char[] password;
 
 
@@ -38,7 +38,7 @@ public class SharknetPKI implements PKI {
         return sharkNetSingleton;
     }
 
-    public synchronized static SharknetPKI init(char[] password) throws SharkNetExcption {
+    public synchronized static SharknetPKI init(char[] password) throws SharkNetException {
         if (sharkNetSingleton != null) {
             throw new AssertionError("Already initialized");
         }
@@ -47,9 +47,9 @@ public class SharknetPKI implements PKI {
         return sharkNetSingleton;
     }
 
-    public synchronized static SharknetPKI init(char[] keyStorePassword, Set<SharknetPublicKey> sharknetPublicKeys, Set<SharknetCertificate> sharknetCertificates) throws SharkNetExcption {
+    public synchronized static SharknetPKI init(char[] keyStorePassword, Set<SharknetPublicKey> sharknetPublicKeys, Set<SharknetCertificate> sharknetCertificates) throws SharkNetException {
         if (sharkNetSingleton != null) {
-            throw new AssertionError("You already initialized me");
+            throw new AssertionError("Already initialized");
         }
 
         sharkNetSingleton = new SharknetPKI(keyStorePassword, sharknetPublicKeys, sharknetCertificates);
@@ -57,18 +57,18 @@ public class SharknetPKI implements PKI {
     }
 
 
-    private SharknetPKI(char[] password) throws SharkNetExcption {
+    private SharknetPKI(char[] password) throws SharkNetException {
         this(password, new HashSet<SharknetPublicKey>(), new HashSet<SharknetCertificate>());
     }
 
-    private SharknetPKI(char[] keyStorePassword, Set<SharknetPublicKey> sharknetPublicKeys, Set<SharknetCertificate> sharknetCertificates) throws SharkNetExcption {
+    private SharknetPKI(char[] keyStorePassword, Set<SharknetPublicKey> sharknetPublicKeys, Set<SharknetCertificate> sharknetCertificates) throws SharkNetException {
         this.sharknetPublicKeys = sharknetPublicKeys;
         this.sharknetCertificates = sharknetCertificates;
         this.password = keyStorePassword;
         try {
             initKeyStore();
         } catch (KeyStoreException | CertificateException | NoSuchAlgorithmException | IOException | NoSuchProviderException e) {
-            throw new SharkNetExcption(e);
+            throw new SharkNetException(e);
         }
     }
 
@@ -113,7 +113,7 @@ public class SharknetPKI implements PKI {
         return wantedCertificate;
     }
 
-    public void addCertificate(SharknetCertificateImpl certificate) {
+    public void addCertificate(SharknetCertificate certificate) {
         sharknetCertificates.add(certificate);
     }
 
@@ -147,6 +147,7 @@ public class SharknetPKI implements PKI {
         SecureRandom secRandom = new SecureRandom();
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
         keyGen.initialize(2048, secRandom);
+
         return keyGen.generateKeyPair();
     }
 
@@ -155,7 +156,7 @@ public class SharknetPKI implements PKI {
         Calendar start = Calendar.getInstance();
         Calendar end = Calendar.getInstance();
         //Jahr von heute plus YEAR Jahre
-        end.add(Calendar.YEAR, KEY_DURATION_YEARS);
+        end.add(Calendar.YEAR, DURATION_YEARS);
 
         X500Name issuerName = new X500Name("CN=" + issuer);
         X500Name subjectName = new X500Name("CN=" + subject);
@@ -172,7 +173,7 @@ public class SharknetPKI implements PKI {
     }
 
 
-    public PublicKey getPublicKey() throws KeyStoreException {
+    public PublicKey getMyOwnPublicKey() throws KeyStoreException {
         return keyStore.getCertificate("key1").getPublicKey();
     }
 

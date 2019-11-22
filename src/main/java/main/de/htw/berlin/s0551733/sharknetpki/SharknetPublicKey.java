@@ -8,5 +8,5 @@ public interface SharknetPublicKey {
     String getAlias();
     String getUuid();
     PublicKey getPublicKey();
-    Date getValidityPeriod();
+    Date getExpirationDate();
 }
