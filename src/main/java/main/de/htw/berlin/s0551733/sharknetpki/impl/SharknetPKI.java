@@ -173,8 +173,29 @@ public class SharknetPKI implements PKI {
     }
 
 
+    @Override
     public PublicKey getMyOwnPublicKey() throws KeyStoreException {
         return keyStore.getCertificate("key1").getPublicKey();
+    }
+
+    @Override
+    public boolean verifySignature(Certificate certToVerify, PublicKey potentialSignerPublicKey) {
+        boolean result = true;
+        try {
+            certToVerify.verify(potentialSignerPublicKey);
+        } catch (Exception e) {
+            if (e instanceof InvalidKeyException) {
+                System.out.println("wrong Key");
+                return !result;
+            }
+            if (e instanceof SignatureException) {
+                System.out.println("Signature error");
+                return !result;
+            } else {
+                return !result; }
+        }
+
+        return result;
     }
 
     public PrivateKey getPrivateKey() throws UnrecoverableKeyException, NoSuchAlgorithmException, KeyStoreException {
@@ -183,120 +204,11 @@ public class SharknetPKI implements PKI {
     }
 
     public void persistKeyStore(OutputStream outputStream) throws CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException {
-//        try (FileOutputStream keyStoreOutputStream = new FileOutputStream(this.keyStorePath)) {
         this.keyStore.store(outputStream, this.password);
     }
 
     public void loadKeyStore(InputStream inputStream) throws CertificateException, NoSuchAlgorithmException, IOException {
-//        try (InputStream keyStoreData = new FileInputStream(this.keyStorePath)) {
         keyStore.load(inputStream, this.password);
     }
-    // BC
-//    private KeyPair createKeyPairWithBC() throws NoSuchAlgorithmException, InvalidKeySpecException {
-//        SecureRandom sr = new SecureRandom();
-//        RSAKeyPairGenerator gen = new RSAKeyPairGenerator();
-//        gen.init(new RSAKeyGenerationParameters(BigInteger.valueOf(3), sr, 1024, 80));
-//        AsymmetricCipherKeyPair keypair = gen.generateKeyPair();
-//        RSAKeyParameters publicKey = (RSAKeyParameters) keypair.getPublic();
-//        RSAPrivateCrtKeyParameters privateKey = (RSAPrivateCrtKeyParameters) keypair.getPrivate();
-//        // used to get proper encoding for the certificate
-//        RSAPublicKeyStructure pkStruct = new RSAPublicKeyStructure(publicKey.getModulus(), publicKey.getExponent());
-//        // JCE format needed for the certificate - because getEncoded() is necessary…
-//        PublicKey pubKey = KeyFactory.getInstance("RSA").generatePublic(
-//                new RSAPublicKeySpec(publicKey.getModulus(), publicKey.getExponent()));
-//        // and this one for the KeyStore
-//        PrivateKey privKey = KeyFactory.getInstance("RSA").generatePrivate(
-//                new RSAPrivateCrtKeySpec(publicKey.getModulus(), publicKey.getExponent(),
-//                        privateKey.getExponent(), privateKey.getP(), privateKey.getQ(),
-//                        privateKey.getDP(), privateKey.getDQ(), privateKey.getQInv()));
-//        return new KeyPair(pubKey, privKey);
-//    }
-
-
-//    public X509Certificate generateCertificate(KeyPair keyPair) throws NoSuchAlgorithmException, CertificateEncodingException, InvalidKeyException, SignatureException {
-//        Calendar start = Calendar.getInstance();
-//        Calendar end = Calendar.getInstance();
-//        //Jahr von heute plus YEAR Jahre
-//        end.add(Calendar.YEAR, KEY_DURATION_YEARS);
-//
-//        X509V3CertificateGenerator cert = new X509V3CertificateGenerator();
-//        cert.setSerialNumber(BigInteger.valueOf(1));   //or generate a random number
-//        cert.setSubjectDN(new X509Principal("CN=localhost"));  //see examples to add O,OU etc
-//        cert.setIssuerDN(new X509Principal("CN=localhost")); //same since it is self-signed
-//        cert.setPublicKey(keyPair.getPublic());
-//        cert.setNotBefore(start.getTime());
-//        cert.setNotAfter(end.getTime());
-//        cert.setSignatureAlgorithm("SHA256withRSA");
-//        PrivateKey signingKey = keyPair.getPrivate();
-//        return cert.generate(signingKey);
-//    }
-
-//    public X509Certificate generateCertificateForThirdPartyKey(PublicKey publicKey, PrivateKey privateKey) throws NoSuchAlgorithmException, CertificateEncodingException, NoSuchProviderException, InvalidKeyException, SignatureException {
-//        Calendar start = Calendar.getInstance();
-//        Calendar end = Calendar.getInstance();
-//        //Jahr von heute plus YEAR Jahre
-//        end.add(Calendar.YEAR, KEY_DURATION_YEARS);
-//
-//        X509V3CertificateGenerator cert = new X509V3CertificateGenerator();
-//        cert.setSerialNumber(BigInteger.valueOf(1));   //or generate a random number
-//        cert.setSubjectDN(new X509Principal("CN=localhost"));  //see examples to add O,OU etc
-//        cert.setIssuerDN(new X509Principal("CN=thirdParty")); //same since it is self-signed
-//        cert.setPublicKey(publicKey);
-//        cert.setNotBefore(start.getTime());
-//        cert.setNotAfter(end.getTime());
-//        cert.setSignatureAlgorithm("SHA256withRSA");
-//        PrivateKey signingKey = privateKey;
-//        return cert.generate(signingKey);
-//    }
-
-//
-//    public X509Certificate generate(String dn, KeyPair keyPair) throws CertificateException {
-//        try {
-//            Security.addProvider(new BouncyCastleProvider());
-//            AlgorithmIdentifier sigAlgId = new DefaultSignatureAlgorithmIdentifierFinder().find(algorithm);
-//            AlgorithmIdentifier digAlgId = new DefaultDigestAlgorithmIdentifierFinder().find(sigAlgId);
-//            AsymmetricKeyParameter privateKeyAsymKeyParam = PrivateKeyFactory.createKey(keyPair.getPrivate().getEncoded());
-//            SubjectPublicKeyInfo subPubKeyInfo = SubjectPublicKeyInfo.getInstance(keyPair.getPublic().getEncoded());
-//            ContentSigner sigGen = new BcRSAContentSignerBuilder(sigAlgId, digAlgId).build(privateKeyAsymKeyParam);
-//            X500Name name = new X500Name(dn);
-//            Date from = new Date();
-//            Date to = new Date(from.getTime() + days * 86400000L);
-//            BigInteger sn = new BigInteger(64, new SecureRandom());
-//            X509v3CertificateBuilder v3CertGen = new X509v3CertificateBuilder(name, sn, from, to, name, subPubKeyInfo);
-//
-//            if (subjectAltName != null)
-//                v3CertGen.addExtension(Extension.subjectAlternativeName, false, subjectAltName);
-//            X509CertificateHolder certificateHolder = v3CertGen.build(sigGen);
-//            return new JcaX509CertificateConverter().setProvider("BC").getCertificate(certificateHolder);
-//        } catch (CertificateException ce) {
-//            throw ce;
-//        } catch (Exception e) {
-//            throw new CertificateException(e);
-//        }
-//    }
-//
-//    private X509Certificate generateCertificateDelta(KeyPair keyPair) throws DeltaClientException {
-//        try {
-//            BigInteger serialNumber = BigInteger.valueOf(System.currentTimeMillis());
-//            Date startDate = DateTimeUtil.getCurrentDate();
-//            Date expiryDate = DateTimeUtil.addDays(startDate, DAYS_CERTIFICATE_VALID);
-//            X500Name issuer = new X500Name(ISSUER);
-//            X500Name subject = new X500Name(SUBJECT);
-//
-//            X509v3CertificateBuilder certBuilder = new X509v3CertificateBuilder(
-//                    issuer, serialNumber, startDate, expiryDate, subject,
-//                    SubjectPublicKeyInfo.getInstance(keyPair.getPublic().getEncoded()));
-//            JcaContentSignerBuilder builder = new JcaContentSignerBuilder("SHA256withRSA");
-//            ContentSigner signer = builder.build(keyPair.getPrivate());
-//
-//
-//            byte[] certBytes = certBuilder.build(signer).getEncoded();
-//            CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
-//            return (X509Certificate) certificateFactory.generateCertificate(new ByteArrayInputStream(certBytes));
-//        } catch (Exception e) {
-//            LOG.error(e.getMessage());
-//            throw new DeltaClientException("Error generating certificate", e);
-//        }
-//    }
 
 }
