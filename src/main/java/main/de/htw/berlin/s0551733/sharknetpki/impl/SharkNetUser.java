@@ -26,6 +26,11 @@ public class SharkNetUser implements User, Serializable {
     }
 
     @Override
+    public void setAlias(String newAlias) {
+        this.alias = newAlias;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

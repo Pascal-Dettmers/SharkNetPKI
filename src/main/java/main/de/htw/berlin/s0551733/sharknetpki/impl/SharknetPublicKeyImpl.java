@@ -26,6 +26,12 @@ public class SharknetPublicKeyImpl implements Serializable, SharknetPublicKey {
     }
 
     @Override
+    public void setAlias(String newAlias) {
+        this.keyOwner.setAlias(newAlias);
+
+    }
+
+    @Override
     public String getUuid() {
         return this.keyOwner.getUuid();
     }

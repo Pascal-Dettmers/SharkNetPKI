@@ -3,7 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="53a01954-f747-45ad-a4d0-067566be5a54" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/PKI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/PKI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/SharknetPublicKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/SharknetPublicKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharkNetUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharkNetUser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharknetPKI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharknetPKI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharknetPublicKeyImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharknetPublicKeyImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data/keystore.ks" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/data/keystore.ks" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/pkiTest/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/pkiTest/Main.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -21,22 +27,28 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharknetPKI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="188" column="31" lean-forward="true" selection-start-line="188" selection-start-column="31" selection-end-line="188" selection-end-column="31" />
+            <state relative-caret-position="728">
+              <caret line="337" column="5" selection-start-line="337" selection-start-column="5" selection-end-line="337" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#4461#4462#0" expanded="true" />
+                <element signature="e#4695#4696#0" expanded="true" />
+                <element signature="e#5420#5421#0" expanded="true" />
+                <element signature="e#5631#5632#0" expanded="true" />
+                <element signature="e#8661#8662#0" expanded="true" />
+                <element signature="e#8906#8907#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/pkiTest/Main.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharkNetException.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="359">
-              <caret line="54" column="9" lean-forward="true" selection-start-line="44" selection-start-column="8" selection-end-line="54" selection-end-column="9" />
+            <state relative-caret-position="68">
+              <caret line="4" column="46" selection-start-line="4" selection-start-column="46" selection-end-line="4" selection-end-column="46" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#181#182#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -45,20 +57,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/SharknetPublicKey.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="26" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/PKI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="88" selection-start-line="21" selection-start-column="88" selection-end-line="21" selection-end-column="88" />
+            <state relative-caret-position="136">
+              <caret line="8" selection-start-line="8" selection-end-line="8" selection-end-column="35" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -69,10 +69,9 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharknetPublicKeyImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="14" column="25" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+            <state relative-caret-position="119">
+              <caret line="7" column="22" lean-forward="true" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
               <folding>
-                <element signature="imports" expanded="true" />
                 <element signature="e#719#720#0" expanded="true" />
                 <element signature="e#766#767#0" expanded="true" />
               </folding>
@@ -81,10 +80,38 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/PKI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="25" selection-start-line="25" selection-end-line="25" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/User.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="21" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="21" />
+            <state relative-caret-position="85">
+              <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharkNetUser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="29" column="30" selection-start-line="29" selection-start-column="30" selection-end-line="29" selection-end-column="30" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#511#512#0" expanded="true" />
+                <element signature="e#539#540#0" expanded="true" />
+                <element signature="e#598#599#0" expanded="true" />
+                <element signature="e#634#635#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -104,6 +131,7 @@
       <find>provider</find>
       <find>addCertificate</find>
       <find>add</find>
+      <find>addPublic</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/src/main/resources/data</dir>
@@ -139,8 +167,6 @@
         <option value="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/SharknetCertificateInterface.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/UserInterface.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/User.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharkNetUser.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharkNetExcption.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/Signer.java" />
@@ -148,9 +174,11 @@
         <option value="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharknetCertificateImpl.java" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/test/java/pkiTest/Main.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/SharknetPublicKey.java" />
-        <option value="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharknetPublicKeyImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/PKI.java" />
+        <option value="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/SharknetPublicKey.java" />
+        <option value="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharkNetUser.java" />
+        <option value="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharknetPublicKeyImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharknetPKI.java" />
       </list>
     </option>
@@ -201,10 +229,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="214" />
-    <option name="y" value="23" />
-    <option name="width" value="1080" />
-    <option name="height" value="659" />
+    <option name="x" value="-282" />
+    <option name="y" value="-1177" />
+    <option name="width" value="1920" />
+    <option name="height" value="1177" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -253,13 +281,6 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="sharknetpki" type="462c0819:PsiDirectoryNode" />
               <item name="impl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sharknetpki" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sharknetpki" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="sharknetpki" type="b2602c69:ProjectViewProjectNode" />
@@ -367,7 +388,7 @@
       <workItem from="1572632575555" duration="3450000" />
       <workItem from="1573599138664" duration="2530000" />
       <workItem from="1574260222621" duration="1272000" />
-      <workItem from="1574385452134" duration="1553000" />
+      <workItem from="1574385452134" duration="8511000" />
     </task>
     <servers />
   </component>
@@ -380,7 +401,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41932000" />
+    <option name="totallyTimeSpent" value="48890000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -392,9 +413,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1440" height="877" extended-state="6" />
+    <frame x="-282" y="-1177" width="1920" height="1177" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19670959" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14643237" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -402,8 +424,8 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3299539" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.35159236" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3299363" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.25437787" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -411,7 +433,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.3299539" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32866243" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32866243" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="12" weight="0.23694268" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -420,7 +442,7 @@
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="right" id="Theme Preview" order="5" />
-      <window_info anchor="right" id="Maven" order="6" visible="true" weight="0.2446352" />
+      <window_info anchor="right" id="Maven" order="6" visible="true" weight="0.18210863" />
       <window_info anchor="right" id="Capture Analysis" order="7" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
     </layout>
@@ -484,16 +506,6 @@
     <entry file="jar:///Library/Java/JavaVirtualMachines/openjdk-12.0.1.jdk/Contents/Home/lib/src.zip!/java.base/java/security/KeyStore.java" />
     <entry file="jrt:///Library/Java/JavaVirtualMachines/openjdk-12.0.1.jdk/Contents/Home!/java.base/java/security/KeyStore.class" />
     <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/Signer.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharkNetException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="46" selection-start-line="4" selection-start-column="46" selection-end-line="4" selection-end-column="46" />
-          <folding>
-            <element signature="e#179#180#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -528,10 +540,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/pkiTest/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-278">
+          <caret line="16" column="144" lean-forward="true" selection-start-line="16" selection-start-column="144" selection-end-line="16" selection-end-column="155" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharkNetUser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+        <state relative-caret-position="425">
+          <caret line="29" column="30" selection-start-line="29" selection-start-column="30" selection-end-line="29" selection-end-column="30" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#511#512#0" expanded="true" />
+            <element signature="e#539#540#0" expanded="true" />
+            <element signature="e#598#599#0" expanded="true" />
+            <element signature="e#634#635#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/PKI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="25" selection-start-line="25" selection-end-line="25" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -540,10 +576,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharknetPublicKeyImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="14" column="25" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+        <state relative-caret-position="119">
+          <caret line="7" column="22" lean-forward="true" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="e#719#720#0" expanded="true" />
             <element signature="e#766#767#0" expanded="true" />
           </folding>
@@ -552,47 +587,43 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/User.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="21" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="21" />
+        <state relative-caret-position="85">
+          <caret line="5" column="35" selection-start-line="5" selection-start-column="35" selection-end-line="5" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/SharknetPublicKey.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="26" />
+        <state relative-caret-position="136">
+          <caret line="8" selection-start-line="8" selection-end-line="8" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/PKI.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharkNetException.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="88" selection-start-line="21" selection-start-column="88" selection-end-line="21" selection-end-column="88" />
+        <state relative-caret-position="68">
+          <caret line="4" column="46" selection-start-line="4" selection-start-column="46" selection-end-line="4" selection-end-column="46" />
           <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/pkiTest/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
-          <caret line="54" column="9" lean-forward="true" selection-start-line="44" selection-start-column="8" selection-end-line="54" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#181#182#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharknetPKI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="188" column="31" lean-forward="true" selection-start-line="188" selection-start-column="31" selection-end-line="188" selection-end-column="31" />
+        <state relative-caret-position="728">
+          <caret line="337" column="5" selection-start-line="337" selection-start-column="5" selection-end-line="337" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#4461#4462#0" expanded="true" />
+            <element signature="e#4695#4696#0" expanded="true" />
+            <element signature="e#5420#5421#0" expanded="true" />
+            <element signature="e#5631#5632#0" expanded="true" />
+            <element signature="e#8661#8662#0" expanded="true" />
+            <element signature="e#8906#8907#0" expanded="true" />
           </folding>
         </state>
       </provider>

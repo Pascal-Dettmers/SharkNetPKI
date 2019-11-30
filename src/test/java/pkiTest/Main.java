@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.security.*;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.HashSet;
 
 public class Main {
 
@@ -22,6 +23,15 @@ public class Main {
         } catch (KeyStoreException e) {
             e.printStackTrace();
         }
+
+        HashSet<String> h = new HashSet<String>();
+
+        // Adding elements into HashSet usind add()
+        h.add("India");
+        h.add("Australia");
+        h.add("South Africa");
+        h.add("India");// adding duplicate elements
+
 
         PublicKey publicKey = pki.getMyOwnPublicKey();
 
@@ -37,7 +47,7 @@ public class Main {
 
         X509Certificate x509Certificate = null;
         try {
-            x509Certificate = pki.generateCertificateWithCertBuilder(keypair.getPublic(), pki.getPrivateKey(), "localhost", "thirparty");
+            x509Certificate = pki.generateCertificate(keypair.getPublic(), pki.getPrivateKey(), "localhost", "thirparty");
         } catch (UnrecoverableKeyException | OperatorCreationException | KeyStoreException e) {
             e.printStackTrace();
         }
