@@ -1,6 +1,6 @@
 package main.de.htw.berlin.s0551733.sharknetpki.impl;
 
-import main.de.htw.berlin.s0551733.sharknetpki.User;
+import main.de.htw.berlin.s0551733.sharknetpki.interfaces.User;
 
 import java.io.Serializable;
 import java.util.Objects;

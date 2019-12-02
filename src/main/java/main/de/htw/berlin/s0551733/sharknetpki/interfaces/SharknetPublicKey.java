@@ -1,13 +1,12 @@
-package main.de.htw.berlin.s0551733.sharknetpki;
+package main.de.htw.berlin.s0551733.sharknetpki.interfaces;
 
 import java.security.PublicKey;
 import java.util.Date;
 
 public interface SharknetPublicKey {
 
-    String getAlias();
+    User getOwner();
     void setAlias(String newAlias);
-    String getUuid();
     PublicKey getPublicKey();
     Date getExpirationDate();
 }

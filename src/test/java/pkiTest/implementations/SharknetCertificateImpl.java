@@ -1,7 +1,7 @@
-package main.de.htw.berlin.s0551733.sharknetpki.impl;
+package pkiTest.implementations;
 
-import main.de.htw.berlin.s0551733.sharknetpki.SharknetCertificate;
-import main.de.htw.berlin.s0551733.sharknetpki.User;
+import main.de.htw.berlin.s0551733.sharknetpki.interfaces.SharknetCertificate;
+import main.de.htw.berlin.s0551733.sharknetpki.interfaces.User;
 
 import java.io.Serializable;
 import java.security.cert.Certificate;
@@ -9,27 +9,19 @@ import java.util.Objects;
 
 public class SharknetCertificateImpl implements Serializable, SharknetCertificate {
 
-    private String alias;
-    private final String uuid;
+    private User subject;
     private Certificate certificate;
     private User signer;
 
-    public SharknetCertificateImpl(String alias, String uuid, Certificate certificate)  {
-        this.alias = alias;
-        this.uuid = uuid;
+    public SharknetCertificateImpl(User subject, Certificate certificate, User signer) {
+        this.subject = subject;
         this.certificate = certificate;
+        this.signer = signer;
     }
 
-    public String getAlias() {
-        return alias;
-    }
-
-    public void setAlias(String alias) {
-        this.alias = alias;
-    }
-
-    public String getUuid() {
-        return uuid;
+    @Override
+    public User getSubject() {
+        return subject;
     }
 
     public Certificate getCertificate() {
@@ -50,11 +42,11 @@ public class SharknetCertificateImpl implements Serializable, SharknetCertificat
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SharknetCertificateImpl that = (SharknetCertificateImpl) o;
-        return Objects.equals(uuid, that.uuid);
+        return Objects.equals(this.subject, that.subject.getUuid());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uuid);
+        return Objects.hash(subject.getUuid());
     }
 }

@@ -1,4 +1,4 @@
-package main.de.htw.berlin.s0551733.sharknetpki;
+package main.de.htw.berlin.s0551733.sharknetpki.interfaces;
 
 public interface User {
     String getUuid();

@@ -1,7 +1,7 @@
-package main.de.htw.berlin.s0551733.sharknetpki.impl;
+package pkiTest.implementations;
 
-import main.de.htw.berlin.s0551733.sharknetpki.SharknetPublicKey;
-import main.de.htw.berlin.s0551733.sharknetpki.User;
+import main.de.htw.berlin.s0551733.sharknetpki.interfaces.SharknetPublicKey;
+import main.de.htw.berlin.s0551733.sharknetpki.interfaces.User;
 
 import java.io.Serializable;
 import java.security.PublicKey;
@@ -21,19 +21,14 @@ public class SharknetPublicKeyImpl implements Serializable, SharknetPublicKey {
     }
 
     @Override
-    public String getAlias() {
-        return this.keyOwner.getAlias();
+    public User getOwner() {
+        return keyOwner;
     }
 
     @Override
     public void setAlias(String newAlias) {
         this.keyOwner.setAlias(newAlias);
 
-    }
-
-    @Override
-    public String getUuid() {
-        return this.keyOwner.getUuid();
     }
 
     public PublicKey getPublicKey() {
@@ -50,11 +45,11 @@ public class SharknetPublicKeyImpl implements Serializable, SharknetPublicKey {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SharknetPublicKeyImpl that = (SharknetPublicKeyImpl) o;
-        return Objects.equals(this.getUuid(), that.getUuid());
+        return Objects.equals(this.keyOwner.getUuid(), that.keyOwner.getUuid());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUuid());
+        return Objects.hash(keyOwner.getUuid());
     }
 }
