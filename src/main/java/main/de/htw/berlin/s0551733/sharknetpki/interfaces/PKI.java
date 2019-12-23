@@ -1,6 +1,5 @@
 package main.de.htw.berlin.s0551733.sharknetpki.interfaces;
 
-import main.de.htw.berlin.s0551733.sharknetpki.impl.SharkNetUser;
 import org.bouncycastle.operator.OperatorCreationException;
 
 import java.io.IOException;
@@ -19,9 +18,9 @@ public interface PKI {
 
     PublicKey getPublicKey(String uuid);
 
-    Certificate getCertificate(String uuid);
+    SharknetCertificate getCertificate(String uuid);
 
-    HashSet<SharknetPublicKey> getPublicKeys();
+    HashSet<SharknetPublicKey> getSharknetPublicKeys();
 
     HashSet<SharknetCertificate> getCertificates();
 

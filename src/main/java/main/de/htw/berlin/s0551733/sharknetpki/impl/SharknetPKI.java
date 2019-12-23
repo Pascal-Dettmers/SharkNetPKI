@@ -114,7 +114,7 @@ public class SharknetPKI implements PKI {
     }
 
     /**
-     * Returns specific Public Key from from given uuid
+     * Returns specific Public Key from given uuid
      *
      * @param uuid Uuid from public Key owner
      * @return Public Key from owner with given uuid
@@ -139,12 +139,11 @@ public class SharknetPKI implements PKI {
     }
 
     /**
-     * Returns all Public Keys from the PKI
+     * Returns all Sharknet Public Keys
      *
-     * @return HashSet of Public Keys in the PKI
+     * @return HashSet of all sharknet Public Keys
      */
-    @Override
-    public HashSet<SharknetPublicKey> getPublicKeys() {
+    public HashSet<SharknetPublicKey> getSharknetPublicKeys() {
         return this.sharknetPublicKeys;
     }
 
@@ -164,11 +163,11 @@ public class SharknetPKI implements PKI {
      * @param uuid Uuid from subject of the Certificate
      * @return Certificate with given uuid
      */
-    public Certificate getCertificate(String uuid) {
-        Certificate wantedCertificate = null;
+    public SharknetCertificate getCertificate(String uuid) {
+        SharknetCertificate wantedCertificate = null;
         for (SharknetCertificate cert : sharknetCertificates) {
             if (cert.getSubject().getUuid().equals(uuid)) {
-                wantedCertificate = cert.getCertificate();
+                wantedCertificate = cert;
                 break;
             }
         }
