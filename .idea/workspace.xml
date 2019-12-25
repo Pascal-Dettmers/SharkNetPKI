@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="53a01954-f747-45ad-a4d0-067566be5a54" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/VerifySignaturResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharknetPKI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/SharknetPKI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/interfaces/PKI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/interfaces/PKI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/pkiTest/SharknetPKITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/de/htw/berlin/s0551733/sharknetpki/SharknetPKITest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/pkiTest/implementations/SharkNetUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharkNetUser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/pkiTest/implementations/SharknetCertificateImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharknetCertificateImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/pkiTest/implementations/SharknetPublicKeyImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharknetPublicKeyImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/sharknet-pki-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/sharknet-pki-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/sharknet-pki-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/target/sharknet-pki-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/test/de/htw/berlin/s0551733/sharknetpki/SharknetPKITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/de/htw/berlin/s0551733/sharknetpki/SharknetPKITest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -30,8 +20,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/java/test/de/htw/berlin/s0551733/sharknetpki/SharknetPKITest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="407" column="69" selection-start-line="407" selection-start-column="69" selection-end-line="407" selection-end-column="69" />
+            <state relative-caret-position="252">
+              <caret line="54" selection-start-line="54" selection-end-line="54" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -419,17 +409,11 @@
       <workItem from="1575318144770" duration="440000" />
       <workItem from="1575921609793" duration="664000" />
       <workItem from="1576426521214" duration="77000" />
-      <workItem from="1576766863001" duration="12376000" />
+      <workItem from="1576766863001" duration="12667000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="SharknetPKITest - 2019.12.23 at 18h 18m 07s.xml">
-      <configuration name="SharknetPKITest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="SharknetPKITest - 2019.12.23 at 18h 20m 20s.xml">
-      <configuration name="SharknetPKITest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="SharknetPKITest - 2019.12.25 at 21h 40m 29s.xml">
       <configuration name="SharknetPKITest" configurationId="JUnit" />
     </history-entry>
@@ -454,9 +438,15 @@
     <history-entry file="SharknetPKITest_getCertificates - 2019.12.25 at 22h 32m 46s.xml">
       <configuration name="SharknetPKITest.getCertificates" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="SharknetPKITest_(1) - 2019.12.25 at 22h 34m 07s.xml">
+      <configuration name="SharknetPKITest (1)" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="SharknetPKITest_(1) - 2019.12.25 at 22h 35m 23s.xml">
+      <configuration name="SharknetPKITest (1)" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83056000" />
+    <option name="totallyTimeSpent" value="83347000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -724,8 +714,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/test/de/htw/berlin/s0551733/sharknetpki/SharknetPKITest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="407" column="69" selection-start-line="407" selection-start-column="69" selection-end-line="407" selection-end-column="69" />
+        <state relative-caret-position="252">
+          <caret line="54" selection-start-line="54" selection-end-line="54" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

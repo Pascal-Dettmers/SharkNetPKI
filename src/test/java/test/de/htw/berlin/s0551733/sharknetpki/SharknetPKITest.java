@@ -43,8 +43,6 @@ class SharknetPKITest {
     private SharknetPublicKey publicKeyC;
     private SharknetPublicKey publicKeyD;
 
-    private ArrayList<User> userList;
-
     private FileInputStream fileInputStream;
 
     private String path;
@@ -54,7 +52,6 @@ class SharknetPKITest {
 
 
         createKeyPairs();
-        createUserList();
         initPublicKeys();
 
         Path resourceDirectory = Paths.get("src", "test", "resources", "keystore.ks");
@@ -437,17 +434,6 @@ class SharknetPKITest {
         keypairD = keyGen.generateKeyPair();
     }
 
-    private void createUserList() {
-        SharkNetUser publicKeyAUser = new SharkNetUser("123", "publicKeyA");
-        SharkNetUser publicKeyBUser = new SharkNetUser("456", "publicKeyB");
-        SharkNetUser publicKeyCUser = new SharkNetUser("789", "publicKeyC");
-        SharkNetUser publicKeyDUser = new SharkNetUser("101112", "publicKeyD");
-        userList = new ArrayList<>();
-        userList.add(publicKeyAUser);
-        userList.add(publicKeyBUser);
-        userList.add(publicKeyCUser);
-        userList.add(publicKeyDUser);
-    }
 
     private void initPublicKeys() {
         publicKeyA = new SharknetPublicKeyImpl(new SharkNetUser("123", "publicKeyA"), this.keypairA.getPublic(), new Date());
