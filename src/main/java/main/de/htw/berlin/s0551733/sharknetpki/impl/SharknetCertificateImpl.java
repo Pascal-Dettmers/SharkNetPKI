@@ -1,4 +1,4 @@
-package pkiTest.implementations;
+package main.de.htw.berlin.s0551733.sharknetpki.impl;
 
 import main.de.htw.berlin.s0551733.sharknetpki.interfaces.SharknetCertificate;
 import main.de.htw.berlin.s0551733.sharknetpki.interfaces.User;
@@ -31,10 +31,6 @@ public class SharknetCertificateImpl implements Serializable, SharknetCertificat
     @Override
     public User getSigner() {
         return signer;
-    }
-
-    public void setCertificate(Certificate certificate) {
-        this.certificate = certificate;
     }
 
     @Override

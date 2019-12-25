@@ -1,5 +1,6 @@
-package main.de.htw.berlin.s0551733.sharknetpki.impl;
+package main.de.htw.berlin.s0551733.sharknetpki;
 
+import main.de.htw.berlin.s0551733.sharknetpki.impl.SharkNetException;
 import main.de.htw.berlin.s0551733.sharknetpki.interfaces.PKI;
 import main.de.htw.berlin.s0551733.sharknetpki.interfaces.SharknetCertificate;
 import main.de.htw.berlin.s0551733.sharknetpki.interfaces.SharknetPublicKey;
@@ -22,15 +23,12 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class SharknetPKI implements PKI {
 
-    private HashSet<SharknetPublicKey> sharknetPublicKeys;
-    private HashSet<SharknetCertificate> sharknetCertificates;
+    private Set<SharknetPublicKey> sharknetPublicKeys;
+    private Set<SharknetCertificate> sharknetCertificates;
     private KeyStore keyStore;
     private InputStream inputStream;
 
@@ -143,7 +141,7 @@ public class SharknetPKI implements PKI {
      *
      * @return HashSet of all sharknet Public Keys
      */
-    public HashSet<SharknetPublicKey> getSharknetPublicKeys() {
+    public Set<SharknetPublicKey> getSharknetPublicKeys() {
         return this.sharknetPublicKeys;
     }
 
@@ -153,7 +151,7 @@ public class SharknetPKI implements PKI {
      * @return HashSet of Certificates in the PKI
      */
     @Override
-    public HashSet<SharknetCertificate> getCertificates() {
+    public Set<SharknetCertificate> getCertificates() {
         return this.sharknetCertificates;
     }
 
@@ -205,7 +203,7 @@ public class SharknetPKI implements PKI {
      * @throws OperatorCreationException
      * @throws CertificateException
      */
-    public X509Certificate generateCertificate(PublicKey publicKey, PrivateKey privateKey, String issuer, String subject) {
+    public X509Certificate generateCertificate(PublicKey publicKey, PrivateKey privateKey, String issuer, String subject) throws SharkNetException {
 
         Certificate certificate = null;
 
@@ -228,12 +226,8 @@ public class SharknetPKI implements PKI {
             CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
             certificate = certificateFactory.generateCertificate(new ByteArrayInputStream(certBytes));
 
-        } catch (CertificateException e) {
-            e.printStackTrace();
-        } catch (OperatorCreationException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new SharkNetException(e);
         }
 
         return (X509Certificate) certificate;
@@ -258,24 +252,21 @@ public class SharknetPKI implements PKI {
      * @return true if Signature could verified
      */
     @Override
-    public boolean verifySignature(Certificate certToVerify, PublicKey potentialSignerPublicKey) {
-        boolean result = true;
+    public VerifySignaturResult verifySignature(Certificate certToVerify, PublicKey potentialSignerPublicKey) {
         try {
             certToVerify.verify(potentialSignerPublicKey);
         } catch (Exception e) {
             if (e instanceof InvalidKeyException) {
-                System.out.println("Invalid Key");
-                return !result;
+                return VerifySignaturResult.INVALID_KEY;
             }
             if (e instanceof SignatureException) {
-                System.out.println("Signature Exception, are your sure this is the right Subject Public Key");
-                return !result;
+                return VerifySignaturResult.SIGNATUR_ERROR;
             } else {
-                return !result;
+                return VerifySignaturResult.UNKNOWN_ERROR;
             }
         }
 
-        return result;
+        return VerifySignaturResult.VERIFIED;
     }
 
     /**
@@ -303,16 +294,12 @@ public class SharknetPKI implements PKI {
      *
      * @return Users own Private Key
      */
-    public PrivateKey getPrivateKey() {
+    public PrivateKey getPrivateKey() throws SharkNetException {
         Key privateKey = null;
         try {
             privateKey = keyStore.getKey("key1", this.password);
-        } catch (UnrecoverableKeyException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (KeyStoreException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new SharkNetException(e);
         }
         return (PrivateKey) privateKey;
 
@@ -323,21 +310,15 @@ public class SharknetPKI implements PKI {
      *
      * @param outputStream output Stream with given path
      */
-    public void persistKeyStore(OutputStream outputStream) {
+    public void persistKeyStore(OutputStream outputStream) throws SharkNetException {
         try {
             this.keyStore.store(outputStream, this.password);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (CertificateException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (KeyStoreException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new SharkNetException(e);
         }
     }
 
-    private void loadKeystore() {
+    private void loadKeystore() throws SharkNetException {
         // Android dont support JKS as keystoretype, https://stackoverflow.com/questions/44448970/bouncycastle-nosuchproviderexception-even-though-its-a-maven-dependency
         // if provider is not present, add it , https://stackoverflow.com/questions/44448970/bouncycastle-nosuchproviderexception-even-though-its-a-maven-dependency
         if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
@@ -368,7 +349,7 @@ public class SharknetPKI implements PKI {
         }
     }
 
-    private void initKeyStore() {
+    private void initKeyStore() throws SharkNetException {
 
         try {
             this.keyStore = KeyStore.getInstance("BKS", "BC");
@@ -376,8 +357,7 @@ public class SharknetPKI implements PKI {
 
             KeyPair keyPair = createKeyPair();
 
-            X509Certificate certificate = null;
-            certificate = generateCertificate(keyPair.getPublic(), keyPair.getPrivate(), "localhost", "localhost");
+            X509Certificate certificate = generateCertificate(keyPair.getPublic(), keyPair.getPrivate(), "localhost", "localhost");
 
             Certificate[] certChain = new Certificate[1];
             certChain[0] = certificate;
@@ -385,16 +365,8 @@ public class SharknetPKI implements PKI {
             KeyStore.PrivateKeyEntry privateKeyEntry = new KeyStore.PrivateKeyEntry(keyPair.getPrivate(), certChain);
             this.keyStore.setEntry("key1", privateKeyEntry, new KeyStore.PasswordProtection(this.password));
 
-        } catch (KeyStoreException e) {
-            e.printStackTrace();
-        } catch (NoSuchProviderException e) {
-            e.printStackTrace();
-        } catch (CertificateException e) {
-            e.printStackTrace();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            throw new SharkNetException(e);
         }
     }
 

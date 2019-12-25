@@ -1,5 +1,7 @@
 package main.de.htw.berlin.s0551733.sharknetpki.interfaces;
 
+import main.de.htw.berlin.s0551733.sharknetpki.VerifySignaturResult;
+import main.de.htw.berlin.s0551733.sharknetpki.impl.SharkNetException;
 import org.bouncycastle.operator.OperatorCreationException;
 
 import java.io.IOException;
@@ -9,8 +11,8 @@ import java.security.PublicKey;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public interface PKI {
 
@@ -20,15 +22,15 @@ public interface PKI {
 
     SharknetCertificate getCertificate(String uuid);
 
-    HashSet<SharknetPublicKey> getSharknetPublicKeys();
+    Set<SharknetPublicKey> getSharknetPublicKeys();
 
-    HashSet<SharknetCertificate> getCertificates();
+    Set<SharknetCertificate> getCertificates();
 
     void addCertificate(SharknetCertificate certificate);
 
     void addPublicKey(SharknetPublicKey publicKey);
 
-    boolean verifySignature(Certificate certToVerify, PublicKey potentialSignerPublicKey);
+    VerifySignaturResult verifySignature(Certificate certToVerify, PublicKey potentialSignerPublicKey);
 
     void removePublicKey(SharknetPublicKey publicKey);
 
@@ -36,6 +38,6 @@ public interface PKI {
 
     PublicKey getMyOwnPublicKey() throws KeyStoreException;
 
-    X509Certificate generateCertificate(PublicKey publicKeyFromSubject, PrivateKey privateKeyFromIssuer, String issuer, String subject) throws IOException, OperatorCreationException, CertificateException;
+    X509Certificate generateCertificate(PublicKey publicKeyFromSubject, PrivateKey privateKeyFromIssuer, String issuer, String subject) throws IOException, OperatorCreationException, CertificateException, SharkNetException;
 
 }

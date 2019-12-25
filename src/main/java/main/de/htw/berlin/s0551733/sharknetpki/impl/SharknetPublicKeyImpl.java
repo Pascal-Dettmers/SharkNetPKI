@@ -1,4 +1,4 @@
-package pkiTest.implementations;
+package main.de.htw.berlin.s0551733.sharknetpki.impl;
 
 import main.de.htw.berlin.s0551733.sharknetpki.interfaces.SharknetPublicKey;
 import main.de.htw.berlin.s0551733.sharknetpki.interfaces.User;

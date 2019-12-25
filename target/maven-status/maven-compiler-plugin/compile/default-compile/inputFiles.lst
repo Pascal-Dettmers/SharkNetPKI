@@ -1,9 +1,6 @@
-/Users/pascaldettmers/Documents/Project/Bachelor/NeueBASchwotzerApp/sharknetpki/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/SharknetCertificate.java
 /Users/pascaldettmers/Documents/Project/Bachelor/NeueBASchwotzerApp/sharknetpki/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharknetPKI.java
-/Users/pascaldettmers/Documents/Project/Bachelor/NeueBASchwotzerApp/sharknetpki/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharkNetUser.java
-/Users/pascaldettmers/Documents/Project/Bachelor/NeueBASchwotzerApp/sharknetpki/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharknetCertificateImpl.java
-/Users/pascaldettmers/Documents/Project/Bachelor/NeueBASchwotzerApp/sharknetpki/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/PKI.java
+/Users/pascaldettmers/Documents/Project/Bachelor/NeueBASchwotzerApp/sharknetpki/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/interfaces/SharknetPublicKey.java
+/Users/pascaldettmers/Documents/Project/Bachelor/NeueBASchwotzerApp/sharknetpki/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/interfaces/User.java
 /Users/pascaldettmers/Documents/Project/Bachelor/NeueBASchwotzerApp/sharknetpki/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharkNetException.java
-/Users/pascaldettmers/Documents/Project/Bachelor/NeueBASchwotzerApp/sharknetpki/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/SharknetPublicKey.java
-/Users/pascaldettmers/Documents/Project/Bachelor/NeueBASchwotzerApp/sharknetpki/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharknetPublicKeyImpl.java
-/Users/pascaldettmers/Documents/Project/Bachelor/NeueBASchwotzerApp/sharknetpki/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/User.java
+/Users/pascaldettmers/Documents/Project/Bachelor/NeueBASchwotzerApp/sharknetpki/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/interfaces/PKI.java
+/Users/pascaldettmers/Documents/Project/Bachelor/NeueBASchwotzerApp/sharknetpki/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/interfaces/SharknetCertificate.java

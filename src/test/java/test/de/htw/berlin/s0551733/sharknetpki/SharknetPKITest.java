@@ -1,7 +1,8 @@
-package pkiTest;
+package test.de.htw.berlin.s0551733.sharknetpki;
 
+import main.de.htw.berlin.s0551733.sharknetpki.VerifySignaturResult;
 import main.de.htw.berlin.s0551733.sharknetpki.impl.SharkNetException;
-import main.de.htw.berlin.s0551733.sharknetpki.impl.SharknetPKI;
+import main.de.htw.berlin.s0551733.sharknetpki.SharknetPKI;
 import main.de.htw.berlin.s0551733.sharknetpki.interfaces.PKI;
 import main.de.htw.berlin.s0551733.sharknetpki.interfaces.SharknetCertificate;
 import main.de.htw.berlin.s0551733.sharknetpki.interfaces.SharknetPublicKey;
@@ -9,14 +10,15 @@ import main.de.htw.berlin.s0551733.sharknetpki.interfaces.User;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pkiTest.implementations.SharkNetUser;
-import pkiTest.implementations.SharknetCertificateImpl;
-import pkiTest.implementations.SharknetPublicKeyImpl;
+import main.de.htw.berlin.s0551733.sharknetpki.impl.SharkNetUser;
+import main.de.htw.berlin.s0551733.sharknetpki.impl.SharknetCertificateImpl;
+import main.de.htw.berlin.s0551733.sharknetpki.impl.SharknetPublicKeyImpl;
 
 import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.*;
@@ -48,15 +50,18 @@ class SharknetPKITest {
     private String path;
 
     @BeforeEach
-    void setUp() throws NoSuchAlgorithmException, NoSuchFieldException, IllegalAccessException {
+    void setUp() throws NoSuchAlgorithmException, NoSuchFieldException, IllegalAccessException, IOException {
 
 
         createKeyPairs();
         createUserList();
+        initPublicKeys();
 
         Path resourceDirectory = Paths.get("src", "test", "resources", "keystore.ks");
-        String absolutePath = resourceDirectory.toFile().getAbsolutePath();
-        path = absolutePath;
+        if (Files.notExists(resourceDirectory.getParent())) {
+            Files.createDirectories(resourceDirectory.getParent());
+        }
+        path = resourceDirectory.toFile().getAbsolutePath();
 
         try {
             fileInputStream = new FileInputStream(path);
@@ -64,12 +69,10 @@ class SharknetPKITest {
             fileInputStream = null;
         }
 
-
-        // https://stackoverflow.com/questions/8256989/singleton-and-unit-testing
+        // Reset Singleton
         Field instance = SharknetPKI.class.getDeclaredField("sharkNetSingleton");
         instance.setAccessible(true);
         instance.set(null, null);
-
 
     }
 
@@ -94,18 +97,9 @@ class SharknetPKITest {
     void initWithInitializedSets() throws SharkNetException, CertificateException, OperatorCreationException, IOException {
         PKI sharknetPKI = SharknetPKI.init("password".toCharArray(), fileInputStream);
 
-        publicKeyA = new SharknetPublicKeyImpl(new SharkNetUser("123", "publicKeyA"), this.keypairA.getPublic(), new Date());
-        publicKeyB = new SharknetPublicKeyImpl(new SharkNetUser("456", "publicKeyB"), this.keypairB.getPublic(), new Date());
-
-        HashSet<SharknetPublicKey> sharknetPublicKeys = new HashSet<>();
-        sharknetPublicKeys.add(publicKeyA);
-        sharknetPublicKeys.add(publicKeyB);
-
-        sharknetPKI.addPublicKey(publicKeyA);
-        sharknetPKI.addPublicKey(publicKeyB);
-
-        publicKeyC = new SharknetPublicKeyImpl(new SharkNetUser("789", "publicKeyC"), this.keypairC.getPublic(), new Date());
-        publicKeyD = new SharknetPublicKeyImpl(new SharkNetUser("101112", "publicKeyD"), this.keypairD.getPublic(), new Date());
+        HashSet<SharknetPublicKey> sharknetPublicKeysTest = new HashSet<>();
+        sharknetPublicKeysTest.add(publicKeyA);
+        sharknetPublicKeysTest.add(publicKeyB);
 
         // Create Certs signed from publicKeyA
         X509Certificate x509CertificateC = sharknetPKI.generateCertificate(keypairC.getPublic(), keypairA.getPrivate(), "KeypairA", "KeypairC");
@@ -113,16 +107,18 @@ class SharknetPKITest {
         SharknetCertificate certC = new SharknetCertificateImpl(publicKeyC.getOwner(), x509CertificateC, publicKeyA.getOwner());
         SharknetCertificate certD = new SharknetCertificateImpl(publicKeyD.getOwner(), x509CertificateD, publicKeyA.getOwner());
 
-        HashSet<SharknetCertificate> sharknetCertificates = new HashSet<>();
-        sharknetCertificates.add(certC);
-        sharknetCertificates.add(certD);
+        HashSet<SharknetCertificate> sharknetCertificatesTest = new HashSet<>();
+        sharknetCertificatesTest.add(certC);
+        sharknetCertificatesTest.add(certD);
 
+        sharknetPKI.addPublicKey(publicKeyA);
+        sharknetPKI.addPublicKey(publicKeyB);
         sharknetPKI.addCertificate(certC);
         sharknetPKI.addCertificate(certD);
 
         assertNotNull(sharknetPKI);
-        assertEquals(sharknetPKI.getSharknetPublicKeys(), sharknetPublicKeys);
-        assertEquals(sharknetPKI.getCertificates(), sharknetCertificates);
+        assertEquals(sharknetPKI.getSharknetPublicKeys(), sharknetPublicKeysTest);
+        assertEquals(sharknetPKI.getCertificates(), sharknetCertificatesTest);
     }
 
     @Test
@@ -145,7 +141,7 @@ class SharknetPKITest {
         SharknetPKI sharknetPKI = SharknetPKI.init("password".toCharArray(), fileInputStream);
         X509Certificate x509CertificateC = sharknetPKI.generateCertificate(keypairC.getPublic(), keypairA.getPrivate(), "KeypairA", "KeypairC");
 
-        assertTrue(sharknetPKI.verifySignature(x509CertificateC, keypairA.getPublic()));
+        assertEquals(sharknetPKI.verifySignature(x509CertificateC, keypairA.getPublic()), VerifySignaturResult.VERIFIED);
 
     }
 
@@ -155,7 +151,7 @@ class SharknetPKITest {
         X509Certificate x509CertificateC = sharknetPKI.generateCertificate(keypairC.getPublic(), keypairA.getPrivate(), "KeypairA", "KeypairC");
 
         // keypairB instead of KeypairA
-        assertFalse(sharknetPKI.verifySignature(x509CertificateC, keypairB.getPublic()));
+        assertEquals(VerifySignaturResult.SIGNATUR_ERROR, sharknetPKI.verifySignature(x509CertificateC, keypairB.getPublic()));
     }
 
     @Test
@@ -291,9 +287,6 @@ class SharknetPKITest {
     @Test
     void getPublicKeys() throws SharkNetException {
 
-        SharknetPublicKeyImpl publicKeyA = new SharknetPublicKeyImpl(new SharkNetUser("123", "publicKeyA"), this.keypairA.getPublic(), new Date());
-        SharknetPublicKeyImpl publicKeyB = new SharknetPublicKeyImpl(new SharkNetUser("456", "publicKeyB"), this.keypairB.getPublic(), new Date());
-
         HashSet<SharknetPublicKey> sharknetPublicKeys = new HashSet<>();
         sharknetPublicKeys.add(publicKeyA);
         sharknetPublicKeys.add(publicKeyB);
@@ -309,15 +302,10 @@ class SharknetPKITest {
     void getCertificates() throws OperatorCreationException, CertificateException, SharkNetException, IOException {
 
         PKI sharknetPKI = SharknetPKI.init("pw".toCharArray(), fileInputStream);
-        generateSharknetPublicKeys();
-
-        publicKeyC = new SharknetPublicKeyImpl(new SharkNetUser("789", "publicKeyC"), this.keypairC.getPublic(), new Date());
-        publicKeyD = new SharknetPublicKeyImpl(new SharkNetUser("101112", "publicKeyD"), this.keypairD.getPublic(), new Date());
 
         // Create Certs signed from publicKeyA
         X509Certificate x509CertificateC = sharknetPKI.generateCertificate(keypairC.getPublic(), keypairA.getPrivate(), "KeypairA", "KeypairC");
         X509Certificate x509CertificateD = sharknetPKI.generateCertificate(keypairD.getPublic(), keypairA.getPrivate(), "KeypairA", "KeypairD");
-
         SharknetCertificate certC = new SharknetCertificateImpl(this.publicKeyC.getOwner(), x509CertificateC, publicKeyA.getOwner());
         SharknetCertificate certD = new SharknetCertificateImpl(this.publicKeyD.getOwner(), x509CertificateD, publicKeyA.getOwner());
 
@@ -337,8 +325,6 @@ class SharknetPKITest {
         PKI sharknetPKI = SharknetPKI.init("pw".toCharArray(), fileInputStream);
         generateSharknetPublicKeys();
 
-        publicKeyD = new SharknetPublicKeyImpl(new SharkNetUser("101112", "publicKeyD"), this.keypairD.getPublic(), new Date());
-
         // Create Certs signed from publicKeyA
         X509Certificate x509CertificateD = sharknetPKI.generateCertificate(keypairD.getPublic(), keypairA.getPrivate(), "KeypairA", "KeypairD");
 
@@ -354,8 +340,6 @@ class SharknetPKITest {
     void addCertificate() throws CertificateException, OperatorCreationException, IOException, SharkNetException {
         PKI sharknetPKI = SharknetPKI.init("pw".toCharArray(), fileInputStream);
         generateSharknetPublicKeys();
-
-        publicKeyC = new SharknetPublicKeyImpl(new SharkNetUser("789", "publicKeyC"), this.keypairC.getPublic(), new Date());
 
         // Create Certs signed from publicKeyA
         X509Certificate x509CertificateC = sharknetPKI.generateCertificate(keypairC.getPublic(), keypairA.getPrivate(), "KeypairA", "KeypairC");
@@ -408,8 +392,6 @@ class SharknetPKITest {
 
         SharknetPKI sharknetPKI = SharknetPKI.init("password".toCharArray(), fileInputStream, sharknetPublicKeys, sharknetCertificates);
 
-        publicKeyC = new SharknetPublicKeyImpl(new SharkNetUser("789", "publicKeyC"), this.keypairC.getPublic(), new Date());
-
         // Create Certs signed from publicKeyA
         X509Certificate x509CertificateC = sharknetPKI.generateCertificate(keypairC.getPublic(), keypairA.getPrivate(), "KeypairA", "KeypairC");
 
@@ -424,8 +406,6 @@ class SharknetPKITest {
     }
 
     private HashSet<SharknetPublicKey> generateSharknetPublicKeys() {
-        publicKeyA = new SharknetPublicKeyImpl(new SharkNetUser("123", "publicKeyA"), this.keypairA.getPublic(), new Date());
-        publicKeyB = new SharknetPublicKeyImpl(new SharkNetUser("456", "publicKeyB"), this.keypairB.getPublic(), new Date());
 
         HashSet<SharknetPublicKey> publicKeys = new HashSet<>();
         publicKeys.add(publicKeyA);
@@ -468,4 +448,12 @@ class SharknetPKITest {
         userList.add(publicKeyCUser);
         userList.add(publicKeyDUser);
     }
+
+    private void initPublicKeys() {
+        publicKeyA = new SharknetPublicKeyImpl(new SharkNetUser("123", "publicKeyA"), this.keypairA.getPublic(), new Date());
+        publicKeyB = new SharknetPublicKeyImpl(new SharkNetUser("456", "publicKeyB"), this.keypairB.getPublic(), new Date());
+        publicKeyC = new SharknetPublicKeyImpl(new SharkNetUser("789", "publicKeyC"), this.keypairC.getPublic(), new Date());
+        publicKeyD = new SharknetPublicKeyImpl(new SharkNetUser("101112", "publicKeyD"), this.keypairD.getPublic(), new Date());
+    }
+
 }

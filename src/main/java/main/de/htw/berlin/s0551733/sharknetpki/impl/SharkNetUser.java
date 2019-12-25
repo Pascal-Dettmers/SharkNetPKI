@@ -1,9 +1,9 @@
-package pkiTest.implementations;
-
-import main.de.htw.berlin.s0551733.sharknetpki.interfaces.User;
+package main.de.htw.berlin.s0551733.sharknetpki.impl;
 
 import java.io.Serializable;
 import java.util.Objects;
+
+import main.de.htw.berlin.s0551733.sharknetpki.interfaces.User;
 
 public class SharkNetUser implements User, Serializable {
 
