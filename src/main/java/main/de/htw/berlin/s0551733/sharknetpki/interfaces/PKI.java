@@ -20,21 +20,21 @@ public interface PKI {
 
     PublicKey getPublicKey(String uuid);
 
-    SharknetCertificate getCertificate(String uuid);
+    SharkNetCertificate getCertificate(String uuid);
 
-    Set<SharknetPublicKey> getSharknetPublicKeys();
+    Set<SharkNetPublicKey> getSharkNetPublicKeys();
 
-    Set<SharknetCertificate> getCertificates();
+    Set<SharkNetCertificate> getCertificates();
 
-    void addCertificate(SharknetCertificate certificate);
+    void addCertificate(SharkNetCertificate certificate);
 
-    void addPublicKey(SharknetPublicKey publicKey);
+    void addPublicKey(SharkNetPublicKey publicKey);
 
     VerifySignaturResult verifySignature(Certificate certToVerify, PublicKey potentialSignerPublicKey);
 
-    void removePublicKey(SharknetPublicKey publicKey);
+    void removePublicKey(SharkNetPublicKey publicKey);
 
-    void removeCertificate(SharknetCertificate certificate);
+    void removeCertificate(SharkNetCertificate certificate);
 
     PublicKey getMyOwnPublicKey() throws KeyStoreException;
 

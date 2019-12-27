@@ -2,6 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="53a01954-f747-45ad-a4d0-067566be5a54" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/SharknetPKI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/SharknetPKI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharkNetPublicKeyImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharkNetPublicKeyImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharknetPublicKeyImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/interfaces/PKI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/interfaces/PKI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/interfaces/SharkNetPublicKey.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/interfaces/SharkNetPublicKey.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/interfaces/SharknetPublicKey.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/test/de/htw/berlin/s0551733/sharknetpki/SharknetPKITest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/test/de/htw/berlin/s0551733/sharknetpki/SharknetPKITest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -301,8 +307,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.SharknetPKITest (1)">
-    <configuration name="SharknetPKITest (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration name="SharkNetPKITest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sharknetpki" />
       <extension name="coverage">
         <pattern>
@@ -311,13 +317,13 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="test.de.htw.berlin.s0551733.sharknetpki" />
-      <option name="MAIN_CLASS_NAME" value="test.de.htw.berlin.s0551733.sharknetpki.SharknetPKITest" />
+      <option name="MAIN_CLASS_NAME" value="test.de.htw.berlin.s0551733.sharknetpki.SharkNetPKITest" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SharknetPKITest.getCertificates" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SharkNetPKITest.getCertificates" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sharknetpki" />
       <extension name="coverage">
         <pattern>
@@ -326,14 +332,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="test.de.htw.berlin.s0551733.sharknetpki" />
-      <option name="MAIN_CLASS_NAME" value="test.de.htw.berlin.s0551733.sharknetpki.SharknetPKITest" />
+      <option name="MAIN_CLASS_NAME" value="test.de.htw.berlin.s0551733.sharknetpki.SharkNetPKITest" />
       <option name="METHOD_NAME" value="getCertificates" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SharknetPKITest.getPublicKeys" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="SharkNetPKITest.getPublicKeys" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="sharknetpki" />
       <extension name="coverage">
         <pattern>
@@ -342,8 +348,24 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="test.de.htw.berlin.s0551733.sharknetpki" />
-      <option name="MAIN_CLASS_NAME" value="test.de.htw.berlin.s0551733.sharknetpki.SharknetPKITest" />
+      <option name="MAIN_CLASS_NAME" value="test.de.htw.berlin.s0551733.sharknetpki.SharkNetPKITest" />
       <option name="METHOD_NAME" value="getPublicKeys" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SharkNetPKITest.verifySignatureWrongPubKey" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="sharknetpki" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.de.htw.berlin.s0551733.sharknetpki.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test.de.htw.berlin.s0551733.sharknetpki" />
+      <option name="MAIN_CLASS_NAME" value="test.de.htw.berlin.s0551733.sharknetpki.SharkNetPKITest" />
+      <option name="METHOD_NAME" value="verifySignatureWrongPubKey" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -365,28 +387,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SharknetPKITest.verifySignatureWrongPubKey" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="sharknetpki" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="test.de.htw.berlin.s0551733.sharknetpki.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="test.de.htw.berlin.s0551733.sharknetpki" />
-      <option name="MAIN_CLASS_NAME" value="test.de.htw.berlin.s0551733.sharknetpki.SharknetPKITest" />
-      <option name="METHOD_NAME" value="verifySignatureWrongPubKey" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.SharknetPKITest (1)" />
-        <item itemvalue="JUnit.SharknetPKITest.getCertificates" />
-        <item itemvalue="JUnit.SharknetPKITest.getPublicKeys" />
-        <item itemvalue="JUnit.SharknetPKITest.verifySignatureWrongPubKey" />
+        <item itemvalue="JUnit.SharkNetPKITest" />
+        <item itemvalue="JUnit.SharkNetPKITest.getCertificates" />
+        <item itemvalue="JUnit.SharkNetPKITest.getPublicKeys" />
+        <item itemvalue="JUnit.SharkNetPKITest.verifySignatureWrongPubKey" />
         <item itemvalue="JUnit.SharknetPKITest.verifySignature" />
       </list>
     </recent_temporary>
@@ -409,7 +415,7 @@
       <workItem from="1575318144770" duration="440000" />
       <workItem from="1575921609793" duration="664000" />
       <workItem from="1576426521214" duration="77000" />
-      <workItem from="1576766863001" duration="12667000" />
+      <workItem from="1576766863001" duration="13099000" />
     </task>
     <servers />
   </component>
@@ -446,7 +452,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83347000" />
+    <option name="totallyTimeSpent" value="83779000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -459,9 +465,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="877" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2074392" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2074392" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -470,7 +475,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32903227" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.35159236" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.35159236" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -478,7 +483,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.3299539" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" weight="0.11464968" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.11464968" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="12" weight="0.2356688" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -575,7 +580,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/interfaces/SharknetPublicKey.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/interfaces/SharkNetPublicKey.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="20" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
@@ -654,7 +659,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharknetPublicKeyImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/main/de/htw/berlin/s0551733/sharknetpki/impl/SharkNetPublicKeyImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />

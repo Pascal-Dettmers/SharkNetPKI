@@ -2,8 +2,8 @@ package main.de.htw.berlin.s0551733.sharknetpki;
 
 import main.de.htw.berlin.s0551733.sharknetpki.impl.SharkNetException;
 import main.de.htw.berlin.s0551733.sharknetpki.interfaces.PKI;
-import main.de.htw.berlin.s0551733.sharknetpki.interfaces.SharknetCertificate;
-import main.de.htw.berlin.s0551733.sharknetpki.interfaces.SharknetPublicKey;
+import main.de.htw.berlin.s0551733.sharknetpki.interfaces.SharkNetCertificate;
+import main.de.htw.berlin.s0551733.sharknetpki.interfaces.SharkNetPublicKey;
 import main.de.htw.berlin.s0551733.sharknetpki.interfaces.User;
 import org.bouncycastle.asn1.x500.X500Name;
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
@@ -25,23 +25,23 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.*;
 
-public class SharknetPKI implements PKI {
+public class SharkNetPKI implements PKI {
 
-    private Set<SharknetPublicKey> sharknetPublicKeys;
-    private Set<SharknetCertificate> sharknetCertificates;
+    private Set<SharkNetPublicKey> sharkNetPublicKeys;
+    private Set<SharkNetCertificate> sharkNetCertificates;
     private KeyStore keyStore;
     private InputStream inputStream;
 
     private static final int DURATION_YEARS = 1;
     private char[] password;
-    private static SharknetPKI sharkNetSingleton;
+    private static SharkNetPKI sharkNetSingleton;
 
     /**
      * Return Instance of PKI
      *
      * @return
      */
-    public static SharknetPKI getInstance() {
+    public static SharkNetPKI getInstance() {
         if (sharkNetSingleton == null) {
             throw new AssertionError("You have to call init first");
         }
@@ -56,12 +56,12 @@ public class SharknetPKI implements PKI {
      * @return Initialized instance PKI
      * @throws SharkNetException
      */
-    public synchronized static SharknetPKI init(char[] password, InputStream inputStream) throws SharkNetException {
+    public synchronized static SharkNetPKI init(char[] password, InputStream inputStream) throws SharkNetException {
         if (sharkNetSingleton != null) {
             throw new AssertionError("Already initialized");
         }
 
-        sharkNetSingleton = new SharknetPKI(password, inputStream);
+        sharkNetSingleton = new SharkNetPKI(password, inputStream);
         return sharkNetSingleton;
     }
 
@@ -69,27 +69,27 @@ public class SharknetPKI implements PKI {
      * Initialize PKI with given Public Keys an Certificates. Need to be done before the PKI can be used. Important, if you never persist the keystore, the input stream has to be null!
      *
      * @param keyStorePassword     Password for Keystore
-     * @param sharknetPublicKeys   List of Public Keys that the PKI should manage
-     * @param sharknetCertificates List of Certifcates that the PKI should manage
+     * @param sharkNetPublicKeys   List of Public Keys that the PKI should manage
+     * @param sharkNetCertificates List of Certifcates that the PKI should manage
      * @return Initialized instance PKI
      * @throws SharkNetException
      */
-    public synchronized static SharknetPKI init(char[] keyStorePassword, InputStream inputStream, HashSet<SharknetPublicKey> sharknetPublicKeys, HashSet<SharknetCertificate> sharknetCertificates) throws SharkNetException {
+    public synchronized static SharkNetPKI init(char[] keyStorePassword, InputStream inputStream, HashSet<SharkNetPublicKey> sharkNetPublicKeys, HashSet<SharkNetCertificate> sharkNetCertificates) throws SharkNetException {
         if (sharkNetSingleton != null) {
             throw new AssertionError("Already initialized");
         }
 
-        sharkNetSingleton = new SharknetPKI(keyStorePassword, inputStream, sharknetPublicKeys, sharknetCertificates);
+        sharkNetSingleton = new SharkNetPKI(keyStorePassword, inputStream, sharkNetPublicKeys, sharkNetCertificates);
         return sharkNetSingleton;
     }
 
-    private SharknetPKI(char[] password, InputStream inputStream) throws SharkNetException {
-        this(password, inputStream, new HashSet<SharknetPublicKey>(), new HashSet<SharknetCertificate>());
+    private SharkNetPKI(char[] password, InputStream inputStream) throws SharkNetException {
+        this(password, inputStream, new HashSet<SharkNetPublicKey>(), new HashSet<SharkNetCertificate>());
     }
 
-    private SharknetPKI(char[] keyStorePassword, InputStream inputStream, HashSet<SharknetPublicKey> sharknetPublicKeys, HashSet<SharknetCertificate> sharknetCertificates) throws SharkNetException {
-        this.sharknetPublicKeys = sharknetPublicKeys;
-        this.sharknetCertificates = sharknetCertificates;
+    private SharkNetPKI(char[] keyStorePassword, InputStream inputStream, HashSet<SharkNetPublicKey> sharkNetPublicKeys, HashSet<SharkNetCertificate> sharkNetCertificates) throws SharkNetException {
+        this.sharkNetPublicKeys = sharkNetPublicKeys;
+        this.sharkNetCertificates = sharkNetCertificates;
         this.inputStream = inputStream;
         this.password = keyStorePassword;
         loadKeystore();
@@ -102,10 +102,10 @@ public class SharknetPKI implements PKI {
      */
     public List<User> getUsers() {
         List<User> users = new ArrayList<>();
-        for (SharknetPublicKey key : sharknetPublicKeys) {
+        for (SharkNetPublicKey key : sharkNetPublicKeys) {
             users.add(key.getOwner());
         }
-        for (SharknetCertificate cert : sharknetCertificates) {
+        for (SharkNetCertificate cert : sharkNetCertificates) {
             users.add(cert.getSubject());
         }
         return users;
@@ -119,14 +119,14 @@ public class SharknetPKI implements PKI {
      */
     public PublicKey getPublicKey(String uuid) {
         PublicKey wantedKey = null;
-        for (SharknetPublicKey key : sharknetPublicKeys) {
+        for (SharkNetPublicKey key : sharkNetPublicKeys) {
             if (key.getOwner().getUuid().equals(uuid)) {
                 wantedKey = key.getPublicKey();
                 break;
             }
         }
         if (wantedKey == null) {
-            for (SharknetCertificate cert : sharknetCertificates) {
+            for (SharkNetCertificate cert : sharkNetCertificates) {
                 if (cert.getSubject().getUuid().equals(uuid)) {
                     wantedKey = cert.getCertificate().getPublicKey();
                     break;
@@ -141,8 +141,8 @@ public class SharknetPKI implements PKI {
      *
      * @return HashSet of all sharknet Public Keys
      */
-    public Set<SharknetPublicKey> getSharknetPublicKeys() {
-        return this.sharknetPublicKeys;
+    public Set<SharkNetPublicKey> getSharkNetPublicKeys() {
+        return this.sharkNetPublicKeys;
     }
 
     /**
@@ -151,8 +151,8 @@ public class SharknetPKI implements PKI {
      * @return HashSet of Certificates in the PKI
      */
     @Override
-    public Set<SharknetCertificate> getCertificates() {
-        return this.sharknetCertificates;
+    public Set<SharkNetCertificate> getCertificates() {
+        return this.sharkNetCertificates;
     }
 
     /**
@@ -161,9 +161,9 @@ public class SharknetPKI implements PKI {
      * @param uuid Uuid from subject of the Certificate
      * @return Certificate with given uuid
      */
-    public SharknetCertificate getCertificate(String uuid) {
-        SharknetCertificate wantedCertificate = null;
-        for (SharknetCertificate cert : sharknetCertificates) {
+    public SharkNetCertificate getCertificate(String uuid) {
+        SharkNetCertificate wantedCertificate = null;
+        for (SharkNetCertificate cert : sharkNetCertificates) {
             if (cert.getSubject().getUuid().equals(uuid)) {
                 wantedCertificate = cert;
                 break;
@@ -177,8 +177,8 @@ public class SharknetPKI implements PKI {
      *
      * @param certificate Certificate to add
      */
-    public void addCertificate(SharknetCertificate certificate) {
-        sharknetCertificates.add(certificate);
+    public void addCertificate(SharkNetCertificate certificate) {
+        sharkNetCertificates.add(certificate);
     }
 
     /**
@@ -187,8 +187,8 @@ public class SharknetPKI implements PKI {
      * @param publicKey Public Key to add
      */
     @Override
-    public void addPublicKey(SharknetPublicKey publicKey) {
-        sharknetPublicKeys.add(publicKey);
+    public void addPublicKey(SharkNetPublicKey publicKey) {
+        sharkNetPublicKeys.add(publicKey);
     }
 
     /**
@@ -275,8 +275,8 @@ public class SharknetPKI implements PKI {
      * @param publicKey Public Key to remove
      */
     @Override
-    public void removePublicKey(SharknetPublicKey publicKey) {
-        this.sharknetPublicKeys.remove(publicKey);
+    public void removePublicKey(SharkNetPublicKey publicKey) {
+        this.sharkNetPublicKeys.remove(publicKey);
     }
 
     /**
@@ -285,8 +285,8 @@ public class SharknetPKI implements PKI {
      * @param certificate Certificate to remove
      */
     @Override
-    public void removeCertificate(SharknetCertificate certificate) {
-        this.sharknetCertificates.remove(certificate);
+    public void removeCertificate(SharkNetCertificate certificate) {
+        this.sharkNetCertificates.remove(certificate);
     }
 
     /**

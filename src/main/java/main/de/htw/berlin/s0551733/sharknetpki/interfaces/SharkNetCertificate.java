@@ -2,7 +2,7 @@ package main.de.htw.berlin.s0551733.sharknetpki.interfaces;
 
 import java.security.cert.Certificate;
 
-public interface SharknetCertificate {
+public interface SharkNetCertificate {
 
     User getSubject();
     Certificate getCertificate();
