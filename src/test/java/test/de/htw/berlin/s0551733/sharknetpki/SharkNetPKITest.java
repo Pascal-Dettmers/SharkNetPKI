@@ -87,7 +87,7 @@ class SharkNetPKITest {
 
         assertNotNull(sharknetPKI);
         assertEquals(sharknetPKI.getSharkNetPublicKeys(), sharkNetPublicKeys);
-        assertEquals(sharknetPKI.getCertificates(), sharkNetCertificates);
+        assertEquals(sharknetPKI.getSharkNetCertificates(), sharkNetCertificates);
     }
 
     @Test
@@ -115,7 +115,7 @@ class SharkNetPKITest {
 
         assertNotNull(sharknetPKI);
         assertEquals(sharknetPKI.getSharkNetPublicKeys(), sharkNetPublicKeysTest);
-        assertEquals(sharknetPKI.getCertificates(), sharkNetCertificatesTest);
+        assertEquals(sharknetPKI.getSharkNetCertificates(), sharkNetCertificatesTest);
     }
 
     @Test
@@ -313,7 +313,7 @@ class SharkNetPKITest {
         sharknetPKI.addCertificate(certC);
         sharknetPKI.addCertificate(certD);
 
-        assertEquals(sharkNetCertificates, sharknetPKI.getCertificates());
+        assertEquals(sharkNetCertificates, sharknetPKI.getSharkNetCertificates());
 
     }
 
@@ -397,7 +397,7 @@ class SharkNetPKITest {
         sharknetPKI.addCertificate(certC);
         sharknetPKI.removeCertificate(certC);
 
-        assertFalse(sharknetPKI.getCertificates().contains(certC));
+        assertFalse(sharknetPKI.getSharkNetCertificates().contains(certC));
 
 
     }

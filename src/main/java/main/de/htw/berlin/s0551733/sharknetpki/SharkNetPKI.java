@@ -33,6 +33,10 @@ public class SharkNetPKI implements PKI {
     private InputStream inputStream;
 
     private static final int DURATION_YEARS = 1;
+    private static final String KEYSTORE_TYPE = "PKCS12";
+    private static final String KEYSTORE_PROVIDER = "BC";
+    private static final String KEYSTORE_KEY_ALIAS = "key1";
+
     private char[] password;
     private static SharkNetPKI sharkNetSingleton;
 
@@ -85,6 +89,7 @@ public class SharkNetPKI implements PKI {
 
     private SharkNetPKI(char[] password, InputStream inputStream) throws SharkNetException {
         this(password, inputStream, new HashSet<SharkNetPublicKey>(), new HashSet<SharkNetCertificate>());
+
     }
 
     private SharkNetPKI(char[] keyStorePassword, InputStream inputStream, HashSet<SharkNetPublicKey> sharkNetPublicKeys, HashSet<SharkNetCertificate> sharkNetCertificates) throws SharkNetException {
@@ -151,7 +156,7 @@ public class SharkNetPKI implements PKI {
      * @return HashSet of Certificates in the PKI
      */
     @Override
-    public Set<SharkNetCertificate> getCertificates() {
+    public Set<SharkNetCertificate> getSharkNetCertificates() {
         return this.sharkNetCertificates;
     }
 
@@ -208,17 +213,21 @@ public class SharkNetPKI implements PKI {
         Certificate certificate = null;
 
         try {
+            // define expiry date
             Calendar start = Calendar.getInstance();
             Calendar end = Calendar.getInstance();
             //Jahr von heute plus YEAR Jahre
             end.add(Calendar.YEAR, DURATION_YEARS);
 
+            // define issuer
             X500Name issuerName = new X500Name("CN=" + issuer);
             X500Name subjectName = new X500Name("CN=" + subject);
+            // define subject
             BigInteger serialNumber = BigInteger.valueOf(System.currentTimeMillis());
             SubjectPublicKeyInfo subPubKeyInfo = SubjectPublicKeyInfo.getInstance(publicKey.getEncoded());
-
+            // create certificate
             X509v3CertificateBuilder cert = new X509v3CertificateBuilder(issuerName, serialNumber, start.getTime(), end.getTime(), subjectName, subPubKeyInfo);
+            // sign certificate
             JcaContentSignerBuilder builder = new JcaContentSignerBuilder("SHA256withRSA");
             ContentSigner signer = builder.build(privateKey);
 
@@ -327,8 +336,7 @@ public class SharkNetPKI implements PKI {
         }
         try {
 
-            this.keyStore = KeyStore.getInstance("BKS", "BC");
-
+            this.keyStore = KeyStore.getInstance(KEYSTORE_TYPE, KEYSTORE_PROVIDER);
 
             if (this.inputStream != null) {
                 this.keyStore.load(inputStream, password);
@@ -352,7 +360,10 @@ public class SharkNetPKI implements PKI {
     private void initKeyStore() throws SharkNetException {
 
         try {
-            this.keyStore = KeyStore.getInstance("BKS", "BC");
+            if (Security.getProvider(BouncyCastleProvider.PROVIDER_NAME) == null) {
+                Security.insertProviderAt(new BouncyCastleProvider(), 1);
+            }
+            this.keyStore = KeyStore.getInstance(KEYSTORE_TYPE, KEYSTORE_PROVIDER);
             this.keyStore.load(null);
 
             KeyPair keyPair = createKeyPair();
@@ -363,7 +374,7 @@ public class SharkNetPKI implements PKI {
             certChain[0] = certificate;
 
             KeyStore.PrivateKeyEntry privateKeyEntry = new KeyStore.PrivateKeyEntry(keyPair.getPrivate(), certChain);
-            this.keyStore.setEntry("key1", privateKeyEntry, new KeyStore.PasswordProtection(this.password));
+            this.keyStore.setEntry(KEYSTORE_KEY_ALIAS, privateKeyEntry, new KeyStore.PasswordProtection(this.password));
 
         } catch (Exception e) {
             throw new SharkNetException(e);

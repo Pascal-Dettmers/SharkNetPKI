@@ -1,0 +1,28 @@
+-classpath
+'/Users/pascaldettmers/.m2/repository/org/bouncycastle/bcpkix-jdk15on/1.58/bcpkix-jdk15on-1.58.jar:/Users/pascaldettmers/.m2/repository/org/bouncycastle/bcprov-jdk15on/1.58/bcprov-jdk15on-1.58.jar'
+-doclet
+'nl.talsmasoftware.umldoclet.UMLDoclet'
+-docletpath
+'/Users/pascaldettmers/.m2/repository/nl/talsmasoftware/umldoclet/2.0.7/umldoclet-2.0.7.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/Users/pascaldettmers/Documents/Project/Bachelor/NeueBASchwotzerApp/sharknetpki/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2019. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/Users/pascaldettmers/Documents/Project/Bachelor/NeueBASchwotzerApp/sharknetpki/target/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'sharknet-pki 1.0-SNAPSHOT API'
+-linkoffline
+'https://docs.oracle.com/javase/7/docs/api' '/Users/pascaldettmers/Documents/Project/Bachelor/NeueBASchwotzerApp/sharknetpki/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'sharknet-pki 1.0-SNAPSHOT API'

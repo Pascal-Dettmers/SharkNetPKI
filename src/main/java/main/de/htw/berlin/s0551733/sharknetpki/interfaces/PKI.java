@@ -24,7 +24,7 @@ public interface PKI {
 
     Set<SharkNetPublicKey> getSharkNetPublicKeys();
 
-    Set<SharkNetCertificate> getCertificates();
+    Set<SharkNetCertificate> getSharkNetCertificates();
 
     void addCertificate(SharkNetCertificate certificate);
 
