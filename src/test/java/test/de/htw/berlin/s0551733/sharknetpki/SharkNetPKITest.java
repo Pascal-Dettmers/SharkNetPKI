@@ -54,7 +54,7 @@ class SharkNetPKITest {
         createKeyPairs();
         initPublicKeys();
 
-        Path resourceDirectory = Paths.get("src", "test", "resources", "keystore.ks");
+        Path resourceDirectory = Paths.get("src", "test", "resources", "keystore.pksc12");
         if (Files.notExists(resourceDirectory.getParent())) {
             Files.createDirectories(resourceDirectory.getParent());
         }

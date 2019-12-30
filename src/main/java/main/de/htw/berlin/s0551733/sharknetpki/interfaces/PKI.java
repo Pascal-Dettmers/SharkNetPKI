@@ -11,8 +11,8 @@ import java.security.PublicKey;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public interface PKI {
 
@@ -22,9 +22,9 @@ public interface PKI {
 
     SharkNetCertificate getCertificate(String uuid);
 
-    Set<SharkNetPublicKey> getSharkNetPublicKeys();
+    HashSet<SharkNetPublicKey> getSharkNetPublicKeys();
 
-    Set<SharkNetCertificate> getSharkNetCertificates();
+    HashSet<SharkNetCertificate> getSharkNetCertificates();
 
     void addCertificate(SharkNetCertificate certificate);
 

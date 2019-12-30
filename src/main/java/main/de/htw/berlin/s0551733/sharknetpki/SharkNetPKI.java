@@ -27,8 +27,8 @@ import java.util.*;
 
 public class SharkNetPKI implements PKI {
 
-    private Set<SharkNetPublicKey> sharkNetPublicKeys;
-    private Set<SharkNetCertificate> sharkNetCertificates;
+    private HashSet<SharkNetPublicKey> sharkNetPublicKeys;
+    private HashSet<SharkNetCertificate> sharkNetCertificates;
     private KeyStore keyStore;
     private InputStream inputStream;
 
@@ -146,7 +146,7 @@ public class SharkNetPKI implements PKI {
      *
      * @return HashSet of all sharknet Public Keys
      */
-    public Set<SharkNetPublicKey> getSharkNetPublicKeys() {
+    public HashSet<SharkNetPublicKey> getSharkNetPublicKeys() {
         return this.sharkNetPublicKeys;
     }
 
@@ -156,7 +156,7 @@ public class SharkNetPKI implements PKI {
      * @return HashSet of Certificates in the PKI
      */
     @Override
-    public Set<SharkNetCertificate> getSharkNetCertificates() {
+    public HashSet<SharkNetCertificate> getSharkNetCertificates() {
         return this.sharkNetCertificates;
     }
 
@@ -389,4 +389,5 @@ public class SharkNetPKI implements PKI {
         return keyGen.generateKeyPair();
     }
 
+//    public SharkNetPublicKey generateMyOwnSharkNetPublicKey
 }
