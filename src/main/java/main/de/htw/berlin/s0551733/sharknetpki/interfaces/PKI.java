@@ -1,6 +1,6 @@
 package main.de.htw.berlin.s0551733.sharknetpki.interfaces;
 
-import main.de.htw.berlin.s0551733.sharknetpki.VerifySignaturResult;
+import main.de.htw.berlin.s0551733.sharknetpki.VerifySignatureResult;
 import main.de.htw.berlin.s0551733.sharknetpki.impl.SharkNetException;
 import org.bouncycastle.operator.OperatorCreationException;
 
@@ -30,7 +30,7 @@ public interface PKI {
 
     void addPublicKey(SharkNetPublicKey publicKey);
 
-    VerifySignaturResult verifySignature(Certificate certToVerify, PublicKey potentialSignerPublicKey);
+    VerifySignatureResult verifySignature(Certificate certToVerify, PublicKey potentialSignerPublicKey);
 
     void removePublicKey(SharkNetPublicKey publicKey);
 

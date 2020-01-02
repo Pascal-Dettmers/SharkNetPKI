@@ -32,7 +32,7 @@ public class SharkNetPKI implements PKI {
     private KeyStore keyStore;
     private InputStream inputStream;
 
-    private static final int DURATION_YEARS = 1;
+    private static final int DURATION_YEARS = 2;
     private static final String KEYSTORE_TYPE = "PKCS12";
     private static final String KEYSTORE_PROVIDER = "BC";
     private static final String KEYSTORE_KEY_ALIAS = "key1";
@@ -221,9 +221,10 @@ public class SharkNetPKI implements PKI {
 
             // define issuer
             X500Name issuerName = new X500Name("CN=" + issuer);
-            X500Name subjectName = new X500Name("CN=" + subject);
             // define subject
+            X500Name subjectName = new X500Name("CN=" + subject);
             BigInteger serialNumber = BigInteger.valueOf(System.currentTimeMillis());
+            // publicKeyInfo the info structure for the public key to be associated with this certificate
             SubjectPublicKeyInfo subPubKeyInfo = SubjectPublicKeyInfo.getInstance(publicKey.getEncoded());
             // create certificate
             X509v3CertificateBuilder cert = new X509v3CertificateBuilder(issuerName, serialNumber, start.getTime(), end.getTime(), subjectName, subPubKeyInfo);
@@ -261,21 +262,21 @@ public class SharkNetPKI implements PKI {
      * @return true if Signature could verified
      */
     @Override
-    public VerifySignaturResult verifySignature(Certificate certToVerify, PublicKey potentialSignerPublicKey) {
+    public VerifySignatureResult verifySignature(Certificate certToVerify, PublicKey potentialSignerPublicKey) {
         try {
             certToVerify.verify(potentialSignerPublicKey);
         } catch (Exception e) {
             if (e instanceof InvalidKeyException) {
-                return VerifySignaturResult.INVALID_KEY;
+                return VerifySignatureResult.INVALID_KEY;
             }
             if (e instanceof SignatureException) {
-                return VerifySignaturResult.SIGNATUR_ERROR;
+                return VerifySignatureResult.SIGNATURE_ERROR;
             } else {
-                return VerifySignaturResult.UNKNOWN_ERROR;
+                return VerifySignatureResult.UNKNOWN_ERROR;
             }
         }
 
-        return VerifySignaturResult.VERIFIED;
+        return VerifySignatureResult.VERIFIED;
     }
 
     /**

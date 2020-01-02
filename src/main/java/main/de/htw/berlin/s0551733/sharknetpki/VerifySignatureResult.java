@@ -1,10 +1,10 @@
 package main.de.htw.berlin.s0551733.sharknetpki;
 
-public enum VerifySignaturResult {
+public enum VerifySignatureResult {
 
     VERIFIED,
     INVALID_KEY,
-    SIGNATUR_ERROR,
+    SIGNATURE_ERROR,
     UNKNOWN_ERROR
 
 }

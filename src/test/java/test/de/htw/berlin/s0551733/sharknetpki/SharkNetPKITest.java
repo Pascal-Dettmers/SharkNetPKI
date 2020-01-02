@@ -1,7 +1,7 @@
 package test.de.htw.berlin.s0551733.sharknetpki;
 
 import main.de.htw.berlin.s0551733.sharknetpki.SharkNetPKI;
-import main.de.htw.berlin.s0551733.sharknetpki.VerifySignaturResult;
+import main.de.htw.berlin.s0551733.sharknetpki.VerifySignatureResult;
 import main.de.htw.berlin.s0551733.sharknetpki.impl.SharkNetException;
 import main.de.htw.berlin.s0551733.sharknetpki.interfaces.PKI;
 import main.de.htw.berlin.s0551733.sharknetpki.interfaces.SharkNetCertificate;
@@ -138,7 +138,7 @@ class SharkNetPKITest {
         SharkNetPKI sharknetPKI = SharkNetPKI.init("password".toCharArray(), fileInputStream);
         X509Certificate x509CertificateC = sharknetPKI.generateCertificate(keypairC.getPublic(), keypairA.getPrivate(), "KeypairA", "KeypairC");
 
-        assertEquals(sharknetPKI.verifySignature(x509CertificateC, keypairA.getPublic()), VerifySignaturResult.VERIFIED);
+        assertEquals(sharknetPKI.verifySignature(x509CertificateC, keypairA.getPublic()), VerifySignatureResult.VERIFIED);
 
     }
 
@@ -148,7 +148,7 @@ class SharkNetPKITest {
         X509Certificate x509CertificateC = sharknetPKI.generateCertificate(keypairC.getPublic(), keypairA.getPrivate(), "KeypairA", "KeypairC");
 
         // keypairB instead of KeypairA
-        assertEquals(VerifySignaturResult.SIGNATUR_ERROR, sharknetPKI.verifySignature(x509CertificateC, keypairB.getPublic()));
+        assertEquals(VerifySignatureResult.SIGNATURE_ERROR, sharknetPKI.verifySignature(x509CertificateC, keypairB.getPublic()));
     }
 
     @Test
